@@ -9,6 +9,7 @@ import java.io.File;
 import org.hibernate.*;
 import org.hibernate.cfg.*;
 import org.hibernate.service.*;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
 
 public class HibernateSupport {
 	private static SessionFactory sessionFactory;
@@ -34,7 +35,9 @@ public class HibernateSupport {
 
 
 		configuration.configure(configFile);
-			
+
+		new SchemaExport(configuration).create(true,true);
+
 		ServiceRegistry serviceRegistry = new ServiceRegistryBuilder()
 				.applySettings(configuration.getProperties()).buildServiceRegistry();
 		try {

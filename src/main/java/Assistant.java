@@ -9,8 +9,7 @@ public class Assistant extends User {
     private String name;
     @Column(length = 20)
     private String password;
-    @ManyToOne
-    private Schedule schedule;
+
 
     public Assistant() {
     }
@@ -19,6 +18,28 @@ public class Assistant extends User {
         this.name = name;
         this.password = pass;
     }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     @Override
     public boolean save() {

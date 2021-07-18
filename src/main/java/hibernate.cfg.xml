@@ -5,7 +5,7 @@
 <session-factory>
 <!-- Database connection settings -->
 <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-<property name="connection.url">jdbc:mysql://localhost:3306/dbd_team</property>
+<property name="connection.url">jdbc:mysql://localhost:3306/timetable</property>
 <property name="connection.username">Prog2</property>
 <property name="connection.password">Prog2</property>
 <property name="connection.autoReconnect">true</property>

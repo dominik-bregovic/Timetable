@@ -30,7 +30,7 @@ public class HibernateSupport {
 		configuration.addAnnotatedClass(Student.class);
 		configuration.addAnnotatedClass(Class.class);
 		configuration.addAnnotatedClass(Room.class);
-		configuration.addAnnotatedClass(Schedule.class);
+		//configuration.addAnnotatedClass(Schedule.class);
 
 
 		configuration.configure(configFile);

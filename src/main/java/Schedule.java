@@ -4,7 +4,7 @@ import java.sql.Time;
 
 @Entity
 public class Schedule extends User{
-    @Id @GeneratedValue
+   /* @Id @GeneratedValue
     @Column
     private int id;
     @Column @OneToMany
@@ -23,7 +23,7 @@ public class Schedule extends User{
         this.assistant = assistant;
         this. aClass = aClass;
         this.room = room;
-    }
+    }*/
 
     @Override
     public boolean save() {

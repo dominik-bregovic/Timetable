@@ -14,10 +14,23 @@ public class Administrator extends User{
     public Administrator() {
     }
 
-    public Administrator(int id, String pass) {
-        this.id = id;
+    public Administrator(String pass) {
         this.password = pass;
     }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
 
     @Override
     public boolean save() {

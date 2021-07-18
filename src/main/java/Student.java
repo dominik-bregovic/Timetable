@@ -21,6 +21,23 @@ public class Student extends User{
         this.name = name;
     }
 
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     @Override
     public boolean save() {
         return false;

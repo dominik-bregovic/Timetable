@@ -1,24 +1,37 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import java.sql.Date;
+import javax.persistence.*;
+import java.util.Date;
 import java.sql.Time;
 
 @Entity
-public class Schedule {
-    @Id
+public class Schedule extends User{
+    @Id @GeneratedValue
     @Column
-    private Date date;
-    @Column
+    private int id;
+    @Column @OneToMany
     private Assistant assistant;
     @Column(name = "class")
     private Class aClass;
     @Column
     private Room room;
-    @Column
-    private Time time;
 
-   /* public Schedule(new Date, new Time){
 
-    }*/
+
+    public Schedule(){
+    }
+
+    public Schedule(Assistant assistant, Class aClass, Room room){
+        this.assistant = assistant;
+        this. aClass = aClass;
+        this.room = room;
+    }
+
+    @Override
+    public boolean save() {
+        return false;
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

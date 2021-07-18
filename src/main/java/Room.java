@@ -11,4 +11,10 @@ public class Room {
     @Column(length = 20)
     private String location;
 
+    public Room(){
+    }
+
+    public Room(String location){
+        this.location = location;
+    }
 }

@@ -11,4 +11,10 @@ public class Class {
     @Column(length = 11)
     private String className;
 
+    public Class(){
+    }
+
+    public Class( String className){
+        this.className = className;
+    }
 }

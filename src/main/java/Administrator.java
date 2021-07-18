@@ -4,10 +4,28 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Administrator {
+public class Administrator extends User{
     @Id @GeneratedValue
-    @Column(name = "admin", length = 11, nullable = false, unique = true)
+    @Column(name = "id", length = 11, nullable = false, unique = true)
     private int id;
     @Column(length = 20)
-    String password;
+    private String password;
+
+    public Administrator() {
+    }
+
+    public Administrator(int id, String pass) {
+        this.id = id;
+        this.password = pass;
+    }
+
+    @Override
+    public boolean save() {
+        return false;
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

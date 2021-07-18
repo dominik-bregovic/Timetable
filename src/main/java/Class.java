@@ -10,4 +10,5 @@ public class Class {
     private int classID;
     @Column(length = 11)
     private String className;
+
 }

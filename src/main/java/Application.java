@@ -6,8 +6,9 @@ public class Application {
         Administrator admin = new Administrator("1234");
 
         HibernateSupport.beginTransaction();
-        admin.save();
+        admin.saveToDB();
         HibernateSupport.commitTransaction();
+        //HibernateSupport support = new HibernateSupport();
 
     }
 }

@@ -26,12 +26,15 @@ public class Schedule extends User{
     }*/
 
     @Override
-    public boolean save() {
+    public boolean saveToDB() {
+        if (HibernateSupport.commit(this)){
+            return false;
+        }
         return false;
     }
 
     @Override
-    public void delete() {
-
+    public void deleteFromDB() {
+        HibernateSupport.deleteObject(this);
     }
 }

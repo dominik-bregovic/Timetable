@@ -1,5 +1,5 @@
 public interface SaveAndDelete {
-    boolean save();
-    void delete();
+    boolean saveToDB();
+    void deleteFromDB();
 }
 

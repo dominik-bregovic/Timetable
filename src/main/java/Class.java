@@ -1,7 +1,4 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Class {
@@ -10,6 +7,8 @@ public class Class {
     private int classID;
     @Column(length = 11)
     private String className;
+    /*@ManyToOne
+    private Schedule schedule;*/
 
     public Class(){
     }

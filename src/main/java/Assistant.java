@@ -9,6 +9,8 @@ public class Assistant extends User {
     private String name;
     @Column(length = 20)
     private String password;
+    /*@ManyToOne
+    private Schedule schedule;*/
 
 
     public Assistant() {

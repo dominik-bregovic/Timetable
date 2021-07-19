@@ -1,7 +1,4 @@
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Room {
@@ -10,6 +7,8 @@ public class Room {
     private int roomId;
     @Column(length = 20)
     private String location;
+    /*@ManyToOne
+    private Schedule schedule;*/
 
     public Room(){
     }

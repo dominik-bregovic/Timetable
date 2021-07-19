@@ -1,18 +1,22 @@
 import javax.persistence.*;
-import java.util.Date;
-import java.sql.Time;
+import java.time.LocalTime;
+import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 public class Schedule extends User{
-   /* @Id @GeneratedValue
+    @Id @GeneratedValue
     @Column
     private int id;
-    @Column @OneToMany
-    private Assistant assistant;
-    @Column(name = "class")
-    private Class aClass;
     @Column
-    private Room room;
+    @OneToMany
+    private List<Assistant> assistant;
+    @Column(name = "class")
+    @OneToMany
+    private List<Class> aClass;
+    @Column
+    @OneToMany
+    private List<Room> room;
 
 
 
@@ -20,10 +24,10 @@ public class Schedule extends User{
     }
 
     public Schedule(Assistant assistant, Class aClass, Room room){
-        this.assistant = assistant;
-        this. aClass = aClass;
-        this.room = room;
-    }*/
+        this.assistant.add(assistant);
+        this. aClass.add(aClass);
+        this.room.add(room);
+    }
 
     @Override
     public boolean saveToDB() {

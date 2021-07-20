@@ -17,7 +17,15 @@ public class Administrator extends User{
     public Administrator(String pass) {
         this.password = pass;
     }
+////////////////////////////////////////
+    private void registerNewAdmin(){
 
+    }
+
+    private void deleteAdmin(){
+
+    }
+/////////////////////////////////////////
 
     public int getId() {
         return id;

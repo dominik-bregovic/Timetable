@@ -29,9 +29,9 @@ public class HibernateSupport {
 		configuration.addAnnotatedClass(Administrator.class);
 		configuration.addAnnotatedClass(Assistant.class);
 		configuration.addAnnotatedClass(Student.class);
-		configuration.addAnnotatedClass(Class.class);
+		configuration.addAnnotatedClass(Subject.class);
 		configuration.addAnnotatedClass(Room.class);
-		//configuration.addAnnotatedClass(Schedule.class);
+		configuration.addAnnotatedClass(Schedule.class);
 
 
 		configuration.configure(configFile);

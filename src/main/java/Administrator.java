@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Administrator extends User{
+public class Administrator extends User {
     @Id @GeneratedValue
     @Column(name = "id", length = 11, nullable = false, unique = true)
     private int id;

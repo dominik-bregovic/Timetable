@@ -1,7 +1,7 @@
 import javax.persistence.*;
 
 @Entity
-public class Room implements SaveAndDelete{
+public class Room implements SaveAndDelete {
     @Id @GeneratedValue
     @Column(name = "room_ID", length = 11, nullable = false, unique = true)
     private int roomId;

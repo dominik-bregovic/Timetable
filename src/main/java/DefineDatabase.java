@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-
-public class Application {
+public class DefineDatabase {
     public static void main(String[] args) {
 
         Assistant assistant = new Assistant("Tom", "Mathematiks");
@@ -10,9 +7,7 @@ public class Application {
 
         Schedule schedule = new Schedule("01.01.2020", "Monday", "17:00", "17:30",assistant.getName(),subject.getSubjectName(),room.getRoomId());
         Schedule schedule1 = new Schedule("02.01.2020", "Tuesday", "17:00", "17:30",assistant.getName(),subject.getSubjectName(),room.getRoomId());
-        /*schedule.addAssistant(assistant);
-        schedule.addSubject(subject);
-        schedule.addRoom(room);*/
+
 
         Administrator admin = new Administrator("1234");
 

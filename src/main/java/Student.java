@@ -4,7 +4,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Student extends User{
+public class Student extends User {
     @Id @GeneratedValue
     @Column(name= "student_ID",length = 11, nullable = false, unique = true)
     private int id;

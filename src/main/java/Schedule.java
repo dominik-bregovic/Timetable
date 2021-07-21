@@ -1,7 +1,10 @@
 import javax.persistence.*;
+import java.util.Locale;
 
 @Entity
-public class Schedule extends User{
+public class Schedule extends User {
+
+
     @Id @GeneratedValue
     @Column(name = "Schedule")
     private int id;
@@ -36,12 +39,42 @@ public class Schedule extends User{
 
     public Schedule(String date, String day, String from, String until, String a, String s, int r){
         this.date = date;
-        this.dayOfWeek = day;
+        checkDayValue(day);
         this.timeFrom = from;
         this.timeTo = until;
         this.assistant = a;
         this.subject = s;
         this.room = r;
+    }
+
+    public void checkDateValue(){
+
+
+    }
+
+    public void checkDayValue(String dayToCheckOn){
+        String checkDay = dayToCheckOn.trim().toLowerCase();
+
+        switch (checkDay) {
+            case "monday":
+                this.dayOfWeek = "Monday";
+            case "tuesday":
+                this.dayOfWeek = "Tuesday";
+            case "wendnesday":
+                this.dayOfWeek = "Wednesday";
+            case "thursday":
+                this.dayOfWeek = "Thursday";
+            case "friday":
+                this.dayOfWeek = "Friday";
+            case "saturday":
+                this.dayOfWeek = "Saturday";
+            case "sunday":
+                this.dayOfWeek = "Sunday";
+            default:
+                System.out.println("Wrong input");
+                //let the user try again
+                //Call InvalidInputError
+        }
     }
 
 

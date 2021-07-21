@@ -1,68 +1,57 @@
 import javax.persistence.*;
 
-@Entity
-public class Assistant extends User {
-    @Id @GeneratedValue
-    @Column(name = "assistant_id",length = 11, nullable = false, unique = true)
-    private int id;
-    @Column(length = 20)
-    private String name;
-    @Column(length = 20)
-    private String password;
-    @ManyToOne
-    private Schedule schedule;
+    @Entity
+    public class Assistant extends User {
+        @Id
+        @GeneratedValue
+        @Column(name = "assistant_id",length = 11, nullable = false, unique = true)
+        private int id;
+        @Column(length = 20)
+        private String name;
+        @Column(length = 20)
+        private String password;
 
 
-    public Assistant() {
-    }
+        public Assistant() {
+        }
 
-    public Assistant(String name, String pass, Schedule schedule) {
-        this.name = name;
-        this.password = pass;
-        this.schedule = schedule;
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+        public Assistant(String name, String pass) {
+            this.name = name;
+            this.password = pass;
+        }
 
 
-    public Schedule getSchedule() {
-        return schedule;
-    }
+        public int getId() {
+            return id;
+        }
 
-    public void setSchedule(Schedule schedule) {
-        this.schedule = schedule;
-    }
+        public String getName() {
+            return name;
+        }
 
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    @Override
-    public boolean saveToDB() {
-        if (HibernateSupport.commit(this)){
+        public String getPassword() {
+            return password;
+        }
+
+        public void setPassword(String password) {
+            this.password = password;
+        }
+
+        @Override
+        public boolean saveToDB() {
+            if (HibernateSupport.commit(this)){
+                return false;
+            }
             return false;
         }
-        return false;
+
+        @Override
+        public void deleteFromDB() {
+            HibernateSupport.deleteObject(this);
+        }
     }
 
-    @Override
-    public void deleteFromDB() {
-        HibernateSupport.deleteObject(this);
-    }
-}

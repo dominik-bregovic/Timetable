@@ -7,15 +7,12 @@ public class Subject implements SaveAndDelete{
     private int subjectId;
     @Column(name = "subject_Name", length = 11)
     private String subjectName;
-    @ManyToOne
-    private Schedule schedule;
 
     public Subject(){
     }
 
-    public Subject(String className, Schedule s){
+    public Subject(String className){
         this.subjectName = className;
-        this.schedule = s;
     }
 
     public int getSubjectID() {

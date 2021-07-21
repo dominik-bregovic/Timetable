@@ -1,47 +1,59 @@
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.sql.Date;
-import java.util.List;
 
 @Entity
 public class Schedule extends User{
-    @Id
-    @Column(name = "Timetable")
-    final private String namoOfTable = "My Timetable";
-    //@Column
-    //private List<Date> dates = new ArrayList<>();
-    @OneToMany
+    @Id @GeneratedValue
+    @Column(name = "Schedule")
+    private int id;
+
+    @Column
+    private String date;
+
+    @Column
+    private String dayOfWeek;
+
+    @Column
+    private String timeFrom;
+
+    @Column
+    private String timeTo;
+
+    @Column
+    //@JoinColumn(name = "the foraign keys name")
     // with the join collum i can prevent Hibernate to map into a new table,
     // so the two tables should be mapped together with their original tables
-    private List<Assistant> assistant;
-    @Column(name = "subjekt")
-    @OneToMany
+    private String assistant;
 
-    private List<Subject> subject = new ArrayList<>();
     @Column
-    @OneToMany
+    private String subject;
 
-    private List<Room> room = new ArrayList<>();
-
+    @Column
+    private int room;
 
 
     public Schedule(){
     }
 
-    public Schedule(List<Assistant> a){
+    public Schedule(String date, String day, String from, String until, String a, String s, int r){
+        this.date = date;
+        this.dayOfWeek = day;
+        this.timeFrom = from;
+        this.timeTo = until;
         this.assistant = a;
+        this.subject = s;
+        this.room = r;
     }
 
 
-    public List<Assistant> getAssistant() {
+    public String getAssistant() {
         return assistant;
     }
 
-    public void setAssistant(List<Assistant> assistant) {
+    public void setAssistant(String assistant) {
         this.assistant = assistant;
     }
 
-    public void addAssistant(Assistant a){
+    /*public void addAssistant(Assistant a){
         this.assistant.add(a);
     }
 
@@ -50,6 +62,38 @@ public class Schedule extends User{
     }
     public void addRoom(Room r){
         this.room.add(r);
+    }*/
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
+    }
+
+    public String getTimeFrom() {
+        return timeFrom;
+    }
+
+    public void setTimeFrom(String timeFrom) {
+        this.timeFrom = timeFrom;
+    }
+
+    public String getTimeTo() {
+        return timeTo;
+    }
+
+    public void setTimeTo(String timeTo) {
+        this.timeTo = timeTo;
     }
 
 

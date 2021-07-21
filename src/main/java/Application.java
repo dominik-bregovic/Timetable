@@ -1,18 +1,18 @@
-import javax.persistence.EntityManager;
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
 
-        Schedule schedule = new Schedule(new ArrayList<>());
-        Assistant assistant = new Assistant("Tom", "qwe", schedule);
-        Subject subject = new Subject("Mathematiks", schedule); // consider using ENUMS !!!!
-        Room room = new Room("East",schedule); // consider using ENUM !!!
+        Assistant assistant = new Assistant("Tom", "Mathematiks");
+        Subject subject = new Subject("Mathematiks"); // consider using ENUMS !!!!
+        Room room = new Room("East"); // consider using ENUM !!!
 
-        schedule.addAssistant(assistant);
+        Schedule schedule = new Schedule("01.01.2020", "Monday", "17:00", "17:30",assistant.getName(),subject.getSubjectName(),room.getRoomId());
+        Schedule schedule1 = new Schedule("02.01.2020", "Tuesday", "17:00", "17:30",assistant.getName(),subject.getSubjectName(),room.getRoomId());
+        /*schedule.addAssistant(assistant);
         schedule.addSubject(subject);
-        schedule.addRoom(room);
+        schedule.addRoom(room);*/
 
         Administrator admin = new Administrator("1234");
 
@@ -23,9 +23,8 @@ public class Application {
         subject.saveToDB();
         room.saveToDB();
 
-
         schedule.saveToDB();
-
+        schedule1.saveToDB();
         HibernateSupport.commitTransaction();
 
     }

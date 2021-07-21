@@ -5,17 +5,15 @@ public class Room implements SaveAndDelete{
     @Id @GeneratedValue
     @Column(name = "room_ID", length = 11, nullable = false, unique = true)
     private int roomId;
+
     @Column(length = 20)
     private String location;
-    @ManyToOne
-    private Schedule schedule;
 
     public Room(){
     }
 
-    public Room(String location, Schedule s){
+    public Room(String location){
         this.location = location;
-        this.schedule = s;
     }
 
     public int getRoomId() {
@@ -29,6 +27,8 @@ public class Room implements SaveAndDelete{
     public void setLocation(String location) {
         this.location = location;
     }
+
+    //the roomId could be a composition of the floor and the room number
 
     @Override
     public boolean saveToDB() {

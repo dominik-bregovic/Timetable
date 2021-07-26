@@ -52,15 +52,30 @@ public class HibernateSupport {
 		return sessionFactory.getCurrentSession();
 	}
 		
-	public static void beginTransaction() { getCurrentSession().beginTransaction(); }
+	public static void beginTransaction() {
+		getCurrentSession().beginTransaction();
+	}
 		
-	public static void commitTransaction() {getCurrentSession().getTransaction().commit();}
+	public static void commitTransaction() {
+		getCurrentSession().getTransaction().commit();
+	}
 		
 	public static boolean commit(Object obj) {
-		try { getCurrentSession().saveOrUpdate(obj);}
-		catch (HibernateException e) { return false; }
+		try {
+			getCurrentSession().saveOrUpdate(obj);
+		}
+		catch (HibernateException e) {
+			return false;
+		}
 		return true;
 	}
 	
-	public static <T> void deleteObject(Object obj){getCurrentSession().delete(obj);}
+	public static <T> void deleteObject(Object obj){
+		getCurrentSession().delete(obj);
+	}
+
+	/*public static <T> void searchEntity(Object obj, String userName){
+		Session session = getCurrentSession();
+		session.get(Assistant.class, userName);
+	}*/
 }

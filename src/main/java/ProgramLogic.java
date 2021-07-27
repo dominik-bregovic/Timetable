@@ -6,8 +6,8 @@ public class ProgramLogic implements ActionListener{
 
     LogGui logGui;
     MyJDBC myJDBC;
-    String userName;
-    String pass;
+    JTextField userName;
+    JPasswordField userPass;
     JButton loginButton;
 
     public ProgramLogic(){
@@ -23,7 +23,9 @@ public class ProgramLogic implements ActionListener{
     public void retrieveLogData(){
         loginButton = logGui.getLoginButton();
         loginButton.addActionListener(this);
-
+        userName = logGui.getUserNameInput();
+        userPass = logGui.getUserPasswordInput();
+        userPass.addActionListener(this);
     }
 
    /* public void getInput(){
@@ -36,7 +38,16 @@ public class ProgramLogic implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("hallo");
+        if (e.getSource() == loginButton || e.getSource() == userPass){
+            System.out.println(myJDBC.searchForRecord("name", "assistant",userName.getText()));
+            System.out.println(myJDBC.searchForRecord("password", "assistant",userPass.getText()));
+            userName.setText("");
+            userPass.setText("");
+
+            // here just check if Admin, Prof or Student
+
+            System.out.println("hallo");
+        }
     }
 
 }

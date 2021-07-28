@@ -9,12 +9,15 @@ public class Administrator extends User {
     @Column(name = "id", length = 11, nullable = false, unique = true)
     private int id;
     @Column(length = 20)
+    private String name;
+    @Column(length = 20)
     private String password;
 
     public Administrator() {
     }
 
-    public Administrator(String pass) {
+    public Administrator(String name, String pass) {
+        this.name = name;
         this.password = pass;
     }
 ////////////////////////////////////////
@@ -38,6 +41,15 @@ public class Administrator extends User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
 
     @Override

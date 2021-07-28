@@ -16,8 +16,7 @@ public class Student extends User {
     public Student() {
     }
 
-    public Student(int id, String name) {
-        this.id = id;
+    public Student(String name) {
         this.name = name;
     }
 

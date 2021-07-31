@@ -158,6 +158,10 @@ public class LogGui{
         return button;
     }
 
+    public void closeLogFrame(){
+        this.login.dispose();
+    }
+
 
     public JTextField getUserNameInput() {
         return userNameInput;

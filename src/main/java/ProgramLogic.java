@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 public class ProgramLogic implements ActionListener{
 
     LogGui logGui;
+    StudGui studGui;
     MyJDBC myJDBC;
     JTextField userName;
     JPasswordField userPass;
     JButton loginButton;
+    JButton signUpForCourse;
 
     public ProgramLogic(){
 
@@ -24,8 +26,10 @@ public class ProgramLogic implements ActionListener{
         loginButton = logGui.getLoginButton();
         loginButton.addActionListener(this);
         userName = logGui.getUserNameInput();
+        userName.addActionListener(this);
         userPass = logGui.getUserPasswordInput();
         userPass.addActionListener(this);
+
     }
 
    /* public void getInput(){
@@ -43,8 +47,6 @@ public class ProgramLogic implements ActionListener{
                     myJDBC.searchForRecord("password", "student",userPass.getText())) {
                 //TODO call stud frame
                 studInterface();
-                this.logGui.closeLogFrame();
-                StudGui studGui = new StudGui();
 
             }
             if (myJDBC.searchForRecord("name", "assistant",userName.getText()) &&
@@ -62,9 +64,27 @@ public class ProgramLogic implements ActionListener{
             userName.setText("");
             userPass.setText("");
         }
+
+
+
+
+        //hope this will work
+        if (e.getSource() == signUpForCourse){
+            System.out.println("all working");
+        }
+
+
+    }
+
+    public void actionPerformed2(){
+
     }
 
     public void studInterface(){
+        this.logGui.closeLogFrame();
+        this.studGui = new StudGui();
+        signUpForCourse = studGui.getSignUpButton();
+        signUpForCourse.addActionListener(this);
         System.out.println("Is this user a Stud: "+myJDBC.searchForRecord("name", "student",userName.getText()));
         System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "student",userPass.getText()));
     }

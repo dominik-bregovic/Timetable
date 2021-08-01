@@ -5,8 +5,8 @@ public class Application {
         Student student = new Student( "Nika");
         Subject subject = new Subject("Mathematiks"); // consider using ENUMS !!!!
         Room room = new Room("East"); // consider using ENUM !!!
-        Schedule schedule = new Schedule("01.01.2020", "Monday", "13:00", "14:00",assistant.getName(),subject.getSubjectName(),room.getRoomId());
-        Schedule schedule1 = new Schedule("02.01.2020", "Tuesday", "11:00", "12:00",assistant.getName(),subject.getSubjectName(),room.getRoomId());
+        Schedule schedule = new Schedule("01.01.2021", "monday", "08:00", "09:00",assistant.getName(),subject.getSubjectName(),room.getRoomId());
+        Schedule schedule1 = new Schedule("02.01.2021", "tuesday", "11:00", "12:00",assistant.getName(),subject.getSubjectName(),room.getRoomId());
         Administrator admin = new Administrator("Domi","12345");
 
 

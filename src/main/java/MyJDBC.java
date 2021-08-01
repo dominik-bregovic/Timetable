@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Locale;
 import java.util.Scanner;
 
     /*
@@ -312,6 +313,15 @@ import java.util.Scanner;
             }
             return false;
         }
+
+
+        public void retrieveRecords(String tablename){
+            try {
+                result = state.executeQuery("SELECT * FROM " + tablename);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        }
 /////////////////////////////////////////////////
 
         public static Connection getConnection() {
@@ -348,6 +358,14 @@ import java.util.Scanner;
                 System.err.println(e.getMessage());
             }
         }
+
+
+        public static ResultSet getResult() {
+            return result;
+        }
+
     }
+
+
 
 

@@ -39,7 +39,7 @@ public class Schedule extends User {
 
     public Schedule(String date, String day, String from, String until, String a, String s, int r){
         this.date = date;
-        checkDayValue(day);
+        this.dayOfWeek = day;
         this.timeFrom = from;
         this.timeTo = until;
         this.assistant = a;
@@ -53,7 +53,7 @@ public class Schedule extends User {
     }
 
     public void checkDayValue(String dayToCheckOn){
-        String checkDay = dayToCheckOn.trim().toLowerCase();
+        String checkDay = dayToCheckOn.toLowerCase();
 
         switch (checkDay) {
             case "monday":

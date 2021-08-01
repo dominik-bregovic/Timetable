@@ -14,6 +14,7 @@ public class Student extends User {
     final private String password = "msd";
 
     public Student() {
+
     }
 
     public Student(String name) {

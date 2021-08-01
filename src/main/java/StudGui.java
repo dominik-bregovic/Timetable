@@ -1,26 +1,37 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StudGui {
 
-    JFrame studFrame;
-    Border createBorder;
+    private MyJDBC myJDBC;
+    private ResultSet scheduleData;
+    private JFrame studFrame;
+    private Border createBorder;
     private JPanel northPanel;
     private JPanel southPanel;
     private JPanel subSouthPanel;
     private JPanel westPanel;
     private JPanel eastPanel;
     private JPanel centerPanel;
-    private JPanel subCenterPanel1;
-    private JPanel subCenterPanel2;
     private JPanel[][] timetable = new JPanel[9][7];
+    private boolean[][] timetableFieldEmpty = new boolean[9][7];
     private JButton signUpButton = new JButton();
+    private List<String> daysOfWeek = new ArrayList<>();
+    private List<String> timeFrom = new ArrayList<>();
+    private List<String> timeUntil = new ArrayList<>();
+    private List<String> subject = new ArrayList<>();
+    private List<String> teacher = new ArrayList<>();
 
-    public StudGui(){
+    public StudGui(MyJDBC jdbc){
+        this.myJDBC= jdbc;
         createFrame();
         createPanel();
-        addCourse("Monday", "08:00");
+        getTheCourses();
     }
 
 
@@ -114,10 +125,9 @@ public class StudGui {
 
 
     public JButton createButton(JButton button){
-        button.setText("Next");
+        button.setText("Submit");
         button.setFocusable(false);
         button.setPreferredSize(new Dimension(100,30));
-
         return button;
     }
 
@@ -174,12 +184,15 @@ public class StudGui {
         this.centerPanel.add(timetable[0][6]);
         fillAllFields();
 
+
     }
+
 
     public void fillAllFields(){
 
         for (int i = 1; i < 9; i++) {
             for (int j = 0; j < 7; j++) {
+                this.timetableFieldEmpty[i][j] = true;
                 this.timetable[i][j] = new JPanel();
                 this.timetable[i][j].setLayout(new GridLayout());
                 this.timetable[i][j].setBackground(Color.WHITE);
@@ -188,58 +201,122 @@ public class StudGui {
 
                 if (j == 0 && i == 1){
                     this.timetable[i][j].add(new JLabel("08:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 2){
                     this.timetable[i][j].add(new JLabel("09:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 3){
                     this.timetable[i][j].add(new JLabel("10:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 4){
                     this.timetable[i][j].add(new JLabel("11:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 5){
                     this.timetable[i][j].add(new JLabel("12:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 6){
                     this.timetable[i][j].add(new JLabel("13:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 7){
                     this.timetable[i][j].add(new JLabel("14:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }else if (j == 0 && i == 8){
                     this.timetable[i][j].add(new JLabel("15:00"));
+                    this.timetableFieldEmpty[i][j] = false;
                 }
             }
         }
+        setFieldsUsed();
+    }
+
+    public void setFieldsUsed(){
+        for (int i = 0; i < 7; i++) {
+            this.timetableFieldEmpty[0][i] = false;
+        }
+    }
+
+    public void getTheCourses(){
+        retrieveCourses();
+        System.out.println(daysOfWeek.size());
+        for (int i = 0; i < daysOfWeek.size(); i++) {
+            fillTableWithCourses(daysOfWeek.get(i), timeFrom.get(i), i);
+        }
+
     }
 
 
-    public void addCourse(String day, String time){
+    public void fillTableWithCourses(String day, String time, int index){
+
 
         switch (day) {
-            case "Monday":
+            case "monday":
                 System.out.println("add to Monday");
-                switch (time){
-                    case "08:00":
-                        timetable[1][1].add(new JLabel("Mathematics \n lets go"));
-                }
+                assignTime(time, index);
                 break;
-            case "Tuesday":
+            case "tuesday":
                 System.out.println("add to Tuesday");
+                assignTime(time, index);
                 break;
-            case "Wednesday":
+            case "wednesday":
                 System.out.println("add to Wednesday");;
+                assignTime(time, index);
                 break;
-            case "Thursday":
+            case "thursday":
                 System.out.println("add to Thursday");;
+                assignTime(time, index);
                 break;
-            case "Friday":
+            case "friday":
                 System.out.println("add to Friday");;
+                assignTime(time, index);
                 break;
-            case "Saturday":
-                System.out.println("add to Saturday");;
+            case "saturday":
+                System.out.println("No school at Saturday");;
                 break;
-            case "Sunday":
-                System.out.println("add to Sunday");;
+            case "sunday":
+                System.out.println("No school at Sunday");;
                 break;
             default:
                 System.out.println("wrong day");;
                 break;
         }
+    }
+
+    public void assignTime(String time, int index){
+        switch (time){
+            case "08:00":
+                timetable[1][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+            case "09:00":
+                timetable[2][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+            case "10:00":
+                timetable[3][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+            case "11:00":
+                timetable[4][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+            case "12:00":
+                timetable[5][1].add(new JLabel());
+            case "13:00":
+                timetable[6][1].add(new JLabel());
+            case "14:00":
+                timetable[7][1].add(new JLabel());
+            case "15:00":
+                timetable[8][1].add(new JLabel());
+        }
+    }
+
+    public void retrieveCourses(){
+         myJDBC.retrieveRecords("schedule");
+         scheduleData = myJDBC.getResult();
+
+         try {
+              while (scheduleData.next()){
+                 this.daysOfWeek.add(scheduleData.getString("dayOfWeek"));
+                 this.timeFrom.add(scheduleData.getString("timeFrom"));
+                 this.timeUntil.add(scheduleData.getString("timeTo"));
+                 this.subject.add(scheduleData.getString("subject"));
+                 this.teacher.add(scheduleData.getString("assistant"));
+              }
+         }catch (SQLException e){
+             System.out.println("something went wrong with the schedule resultset");
+         }
     }
 
 

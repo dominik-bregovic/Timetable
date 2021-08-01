@@ -82,11 +82,9 @@ public class ProgramLogic implements ActionListener{
 
     public void studInterface(){
         this.logGui.closeLogFrame();
-        this.studGui = new StudGui();
+        this.studGui = new StudGui(myJDBC);
         signUpForCourse = studGui.getSignUpButton();
         signUpForCourse.addActionListener(this);
-        System.out.println("Is this user a Stud: "+myJDBC.searchForRecord("name", "student",userName.getText()));
-        System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "student",userPass.getText()));
     }
 
     public void assitInterface(){

@@ -47,7 +47,7 @@ public class ProgramLogic implements ActionListener{
                     myJDBC.searchForRecord("password", "student",userPass.getText())) {
                 //TODO call stud frame
                 studInterface();
-
+                //only have to implement the possibility to sign up fro courses
             }
             if (myJDBC.searchForRecord("name", "assistant",userName.getText()) &&
                     myJDBC.searchForRecord("password", "assistant",userPass.getText())){

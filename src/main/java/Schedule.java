@@ -30,14 +30,14 @@ public class Schedule extends User {
     @Column
     private String subject;
 
-    @Column
-    private int room;
+    @OneToOne
+    private Room room;
 
 
     public Schedule(){
     }
 
-    public Schedule(String date, String day, String from, String until, String a, String s, int r){
+    public Schedule(String date, String day, String from, String until, String a, String s, Room r){
         this.date = date;
         this.dayOfWeek = day;
         this.timeFrom = from;
@@ -128,6 +128,16 @@ public class Schedule extends User {
     public void setTimeTo(String timeTo) {
         this.timeTo = timeTo;
     }
+
+
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
 
 
 

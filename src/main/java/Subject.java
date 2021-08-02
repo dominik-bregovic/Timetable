@@ -5,7 +5,7 @@ public class Subject implements SaveAndDelete {
     @Id @GeneratedValue
     @Column(name = "subject_id", length = 11, nullable = false, unique = true)
     private int subjectId;
-    @Column(name = "subject_Name", length = 11)
+    @Column(name = "subject_Name", length = 20)
     private String subjectName;
 
     public Subject(){
@@ -26,6 +26,7 @@ public class Subject implements SaveAndDelete {
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
+
 
     @Override
     public boolean saveToDB() {

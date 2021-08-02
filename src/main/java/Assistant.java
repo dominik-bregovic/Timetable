@@ -10,14 +10,17 @@ import javax.persistence.*;
         private String name;
         @Column(length = 20)
         private String password;
+        @Column
+        private String subject;
 
 
         public Assistant() {
         }
 
-        public Assistant(String name, String pass) {
+        public Assistant(String name, String pass, String subject) {
             this.name = name;
             this.password = pass;
+            this.subject = subject;
         }
 
 
@@ -40,6 +43,16 @@ import javax.persistence.*;
         public void setPassword(String password) {
             this.password = password;
         }
+
+
+        public String getSubject() {
+            return subject;
+        }
+
+        public void setSubject(String subject) {
+            this.subject = subject;
+        }
+
 
         @Override
         public boolean saveToDB() {

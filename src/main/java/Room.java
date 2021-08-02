@@ -9,6 +9,7 @@ public class Room implements SaveAndDelete {
     @Column(length = 20)
     private String location;
 
+
     public Room(){
     }
 

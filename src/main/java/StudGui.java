@@ -26,6 +26,7 @@ public class StudGui {
     private List<String> timeUntil = new ArrayList<>();
     private List<String> subject = new ArrayList<>();
     private List<String> teacher = new ArrayList<>();
+    private List<Integer> room = new ArrayList<>();
 
     public StudGui(MyJDBC jdbc){
         this.myJDBC= jdbc;
@@ -237,37 +238,43 @@ public class StudGui {
 
     public void getTheCourses(){
         retrieveCourses();
+
         System.out.println(daysOfWeek.size());
         for (int i = 0; i < daysOfWeek.size(); i++) {
             fillTableWithCourses(daysOfWeek.get(i), timeFrom.get(i), i);
+            fillTableWithCourses(daysOfWeek.get(i), timeUntil.get(i), i);
         }
-
     }
 
 
     public void fillTableWithCourses(String day, String time, int index){
-
+    int columnDay = 0;
 
         switch (day) {
             case "monday":
                 System.out.println("add to Monday");
-                assignTime(time, index);
+                columnDay = 1;
+                assignTime(time, columnDay, index);
                 break;
             case "tuesday":
                 System.out.println("add to Tuesday");
-                assignTime(time, index);
+                columnDay = 2;
+                assignTime(time, columnDay, index);
                 break;
             case "wednesday":
                 System.out.println("add to Wednesday");;
-                assignTime(time, index);
+                columnDay = 3;
+                assignTime(time, columnDay, index);
                 break;
             case "thursday":
                 System.out.println("add to Thursday");;
-                assignTime(time, index);
+                columnDay = 4;
+                assignTime(time, columnDay, index);
                 break;
             case "friday":
                 System.out.println("add to Friday");;
-                assignTime(time, index);
+                columnDay = 5;
+                assignTime(time, columnDay, index);
                 break;
             case "saturday":
                 System.out.println("No school at Saturday");;
@@ -281,24 +288,45 @@ public class StudGui {
         }
     }
 
-    public void assignTime(String time, int index){
+    public void assignTime(String time, int columnday, int index){
+        JTextArea textArea = new JTextArea();
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        textArea.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+
         switch (time){
             case "08:00":
-                timetable[1][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[1][columnday].add(textArea);
+                break;
             case "09:00":
-                timetable[2][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[2][columnday].add(textArea);
+                break;
             case "10:00":
-                timetable[3][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[3][columnday].add(textArea);
+                break;
             case "11:00":
-                timetable[4][1].add(new JLabel(subject.get(index) + "     " +  teacher.get(index)));
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[4][columnday].add(textArea);
+                break;
             case "12:00":
-                timetable[5][1].add(new JLabel());
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[5][columnday].add(textArea);
+                break;
             case "13:00":
-                timetable[6][1].add(new JLabel());
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[6][columnday].add(textArea);
+                break;
             case "14:00":
-                timetable[7][1].add(new JLabel());
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[7][columnday].add(textArea);
+                break;
             case "15:00":
-                timetable[8][1].add(new JLabel());
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[8][columnday].add(textArea);
+                break;
         }
     }
 
@@ -313,6 +341,7 @@ public class StudGui {
                  this.timeUntil.add(scheduleData.getString("timeTo"));
                  this.subject.add(scheduleData.getString("subject"));
                  this.teacher.add(scheduleData.getString("assistant"));
+                 this.room.add(scheduleData.getInt("room_room_ID"));
               }
          }catch (SQLException e){
              System.out.println("something went wrong with the schedule resultset");

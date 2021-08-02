@@ -1,15 +1,19 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudGui {
+public class StudGui implements MouseListener {
 
     private MyJDBC myJDBC;
     private ResultSet scheduleData;
+    private String user;
     private JFrame studFrame;
     private Border createBorder;
     private JPanel northPanel;
@@ -28,8 +32,9 @@ public class StudGui {
     private List<String> teacher = new ArrayList<>();
     private List<Integer> room = new ArrayList<>();
 
-    public StudGui(MyJDBC jdbc){
+    public StudGui(MyJDBC jdbc, String user){
         this.myJDBC= jdbc;
+        this.user = user;
         createFrame();
         createPanel();
         getTheCourses();
@@ -79,7 +84,7 @@ public class StudGui {
 
 
         centerPanel = new JPanel();
-        centerPanel.setBackground(Color.GRAY);
+        centerPanel.setBackground(Color.WHITE);
         centerPanel.setLayout(new GridLayout(0,7));
         centerPanel.setPreferredSize(new Dimension(300,300));
         this.studFrame.add(centerPanel, BorderLayout.CENTER);
@@ -292,6 +297,8 @@ public class StudGui {
         JTextArea textArea = new JTextArea();
         textArea.setLineWrap(true);
         textArea.setEditable(false);
+        textArea.addMouseListener(this);
+        textArea.setBackground(new Color(200,200,200));
         textArea.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 
         switch (time){
@@ -355,5 +362,29 @@ public class StudGui {
 
 
 
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        //here when i click it should open a frame and ask me if i want to sign up
+        SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(this.user);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
 }
 

@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ProgramLogic implements ActionListener{
+public class AdminAssistOrStudInterface implements ActionListener{
 
     LogGui logGui;
     StudGui studGui;
@@ -12,11 +12,11 @@ public class ProgramLogic implements ActionListener{
     JButton loginButton;
     JButton signUpForCourse;
 
-    public ProgramLogic(){
+    public AdminAssistOrStudInterface(){
 
     }
 
-    public ProgramLogic(LogGui log, MyJDBC jdbc){
+    public AdminAssistOrStudInterface(LogGui log, MyJDBC jdbc){
         this.logGui = log;
         this.myJDBC = jdbc;
         retrieveLogData();
@@ -43,16 +43,17 @@ public class ProgramLogic implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == loginButton || e.getSource() == userPass){
-            if (myJDBC.searchForRecord("name", "student",userName.getText()) &&
+            String userNameInput = userName.getText();
+            if (myJDBC.searchForRecord("name", "student",userNameInput) &&
                     myJDBC.searchForRecord("password", "student",userPass.getText())) {
                 //TODO call stud frame
-                studInterface();
-                //only have to implement the possibility to sign up fro courses
+                studInterface(userNameInput);
+                //only have to implement the possibility to sign up for courses
             }
             if (myJDBC.searchForRecord("name", "assistant",userName.getText()) &&
                     myJDBC.searchForRecord("password", "assistant",userPass.getText())){
                 //TODO call assist frame
-                assitInterface();
+                assistInterface();
             }
             if (myJDBC.searchForRecord("name", "administrator",userName.getText()) &&
                     myJDBC.searchForRecord("password", "administrator",userPass.getText())){
@@ -76,18 +77,15 @@ public class ProgramLogic implements ActionListener{
 
     }
 
-    public void actionPerformed2(){
 
-    }
-
-    public void studInterface(){
+    public void studInterface(String user){
         this.logGui.closeLogFrame();
-        this.studGui = new StudGui(myJDBC);
+        this.studGui = new StudGui(myJDBC, user);
         signUpForCourse = studGui.getSignUpButton();
         signUpForCourse.addActionListener(this);
     }
 
-    public void assitInterface(){
+    public void assistInterface(){
         System.out.println("Is this user a Assist: "+myJDBC.searchForRecord("name", "assistant",userName.getText()));
         System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "assistant",userPass.getText()));
     }

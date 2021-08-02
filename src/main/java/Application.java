@@ -1,13 +1,17 @@
 public class Application {
 
     public static void main(String[] args) {
+        // making objects will be part of Admin and Assist
+
+        Student student = new Student( "Nika");
         Subject subject = new Subject("Mathematiks"); // consider using ENUMS !!!!
         Subject subject1 = new Subject("German");
         Subject subject2= new Subject("English");
+        //want to sign in
+        subject.addStudent(student);
         Assistant assistant = new Assistant("Tom", "1234", subject.getSubjectName());
         Assistant assistant1 = new Assistant("Daniel", "1234", subject2.getSubjectName());
         Assistant assistant2= new Assistant("Marko", "1234", subject1.getSubjectName());
-        Student student = new Student( "Nika");
         Room room = new Room("East"); // consider using ENUM !!!
         Room room1 = new Room("West");
         Room room2 = new Room("South");
@@ -41,7 +45,7 @@ public class Application {
 
         //StudGui studGui = new StudGui();
         //LogGui gui = new LogGui();
-        ProgramLogic logic = new ProgramLogic(new LogGui(), new MyJDBC());
+        AdminAssistOrStudInterface logic = new AdminAssistOrStudInterface(new LogGui(), new MyJDBC());
         //ProgramLogic logic2 = new ProgramLogic(new LogGui(), new MyJDBC());
         //if (logic.myJDBC.searchForRecord("name", "assistant", "Tom"))
         //    System.out.println("Hallo");

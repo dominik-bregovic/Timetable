@@ -1,4 +1,6 @@
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Subject implements SaveAndDelete {
@@ -7,6 +9,8 @@ public class Subject implements SaveAndDelete {
     private int subjectId;
     @Column(name = "subject_Name", length = 20)
     private String subjectName;
+    @OneToMany
+    private List<Student> student = new ArrayList<>();
 
     public Subject(){
     }
@@ -26,6 +30,20 @@ public class Subject implements SaveAndDelete {
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
+
+
+    public List<Student> getStudent() {
+        return student;
+    }
+
+    public void setStudent(List<Student> student) {
+        this.student = student;
+    }
+
+    public void addStudent(Student s){
+        this.student.add(s);
+    }
+
 
 
     @Override

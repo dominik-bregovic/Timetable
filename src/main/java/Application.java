@@ -2,6 +2,10 @@ public class Application {
 
     public static void main(String[] args) {
         // making objects will be part of Admin and Assist
+        initializeDatabase();
+    }
+
+    public static void initializeDatabase(){
 
         Student student = new Student( "Nika");
         Subject subject = new Subject("Mathematiks"); // consider using ENUMS !!!!
@@ -46,7 +50,6 @@ public class Application {
         //StudGui studGui = new StudGui();
         //LogGui gui = new LogGui();
         AdminAssistOrStudInterface logic = new AdminAssistOrStudInterface(new LogGui(), new MyJDBC());
-        //ProgramLogic logic2 = new ProgramLogic(new LogGui(), new MyJDBC());
         //if (logic.myJDBC.searchForRecord("name", "assistant", "Tom"))
         //    System.out.println("Hallo");
     }

@@ -5,12 +5,15 @@ import java.awt.event.ActionListener;
 public class AdminAssistOrStudInterface implements ActionListener{
 
     LogGui logGui;
+    AdminGui adminGui;
+    AssistGui assistGui;
     StudGui studGui;
     MyJDBC myJDBC;
     JTextField userName;
     JPasswordField userPass;
     JButton loginButton;
     JButton signUpForCourse;
+    JButton createUser;
 
     public AdminAssistOrStudInterface(){
 
@@ -86,11 +89,19 @@ public class AdminAssistOrStudInterface implements ActionListener{
     }
 
     public void assistInterface(){
+        this.logGui.closeLogFrame();
+        this.assistGui = new AssistGui();
+        //this.createUser = adminGui.getCreateButton();
+        //this.createUser.addActionListener(this);
         System.out.println("Is this user a Assist: "+myJDBC.searchForRecord("name", "assistant",userName.getText()));
         System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "assistant",userPass.getText()));
     }
 
     public void adminInterface(){
+        this.logGui.closeLogFrame();
+        this.adminGui = new AdminGui();
+        this.createUser = adminGui.getCreateButton();
+        this.createUser.addActionListener(this);
         System.out.println("Is this user a Admin: "+myJDBC.searchForRecord("name", "administrator",userName.getText()));
         System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "administrator",userPass.getText()));
     }

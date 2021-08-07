@@ -8,7 +8,7 @@ public class Application {
     public static void initializeDatabase(){
 
         Student student = new Student( "Nika");
-        Subject subject = new Subject("Mathematiks"); // consider using ENUMS !!!!
+        Subject subject = new Subject("Mathematics"); // consider using ENUMS !!!!
         Subject subject1 = new Subject("German");
         Subject subject2= new Subject("English");
         //want to sign in

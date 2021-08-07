@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudGui implements MouseListener {
+public class StudGui{
 
     private MyJDBC myJDBC;
     private ResultSet scheduleData;
@@ -297,7 +297,32 @@ public class StudGui implements MouseListener {
         JTextArea textArea = new JTextArea();
         textArea.setLineWrap(true);
         textArea.setEditable(false);
-        textArea.addMouseListener(this);
+        textArea.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(user, textArea);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         textArea.setBackground(new Color(200,200,200));
         textArea.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 
@@ -360,31 +385,5 @@ public class StudGui implements MouseListener {
         return signUpButton;
     }
 
-
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        //here when i click it should open a frame and ask me if i want to sign up
-        SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(this.user);
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
 

@@ -10,7 +10,7 @@ public class Subject implements SaveAndDelete {
     @Column(name = "subject_Name", length = 20)
     private String subjectName;
     @OneToMany
-    private List<Student> student = new ArrayList<>();
+    private List<Student> students = new ArrayList<>();
 
     public Subject(){
     }
@@ -32,16 +32,16 @@ public class Subject implements SaveAndDelete {
     }
 
 
-    public List<Student> getStudent() {
-        return student;
+    public List<Student> getStudents() {
+        return students;
     }
 
-    public void setStudent(List<Student> student) {
-        this.student = student;
+    public void setStudents(List<Student> students) {
+        this.students = students;
     }
 
     public void addStudent(Student s){
-        this.student.add(s);
+        this.students.add(s);
     }
 
 

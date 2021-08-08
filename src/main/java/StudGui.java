@@ -1,7 +1,6 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
@@ -22,6 +21,8 @@ public class StudGui{
     private JPanel westPanel;
     private JPanel eastPanel;
     private JPanel centerPanel;
+    private JTextArea textArea;
+    private JTextArea[][] textAreas = new JTextArea[9][7];
     private JPanel[][] timetable = new JPanel[9][7];
     private boolean[][] timetableFieldEmpty = new boolean[9][7];
     private JButton signUpButton = new JButton();
@@ -59,7 +60,6 @@ public class StudGui{
 
     public void createPanel(){
         northPanel = new JPanel();
-        //panel1.setBounds(50,50, 500,400);
         northPanel.setBackground(new Color(200,200,200));
         northPanel.setLayout(new BorderLayout());
         northPanel.setPreferredSize(new Dimension(100,70));
@@ -67,14 +67,12 @@ public class StudGui{
         this.studFrame.add(northPanel, BorderLayout.NORTH);
 
         southPanel = new JPanel();
-        //panel2.setBounds(50,50, 500,400);
         southPanel.setBackground(new Color(200,200,200));
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(200,50));
         this.studFrame.add(southPanel, BorderLayout.SOUTH);
 
         subSouthPanel = new JPanel();
-        //panel4.setBounds(50,50, 500,400);
         subSouthPanel.setBackground(new Color(200,200,200));
         subSouthPanel.setLayout(new FlowLayout());
         subSouthPanel.setPreferredSize(new Dimension(150,50));
@@ -90,13 +88,7 @@ public class StudGui{
         this.studFrame.add(centerPanel, BorderLayout.CENTER);
         fillTimetable();
 
-        //centerPanel.add(createLogPanel(new JPanel(), 200, 70, "Username:"), BorderLayout.NORTH);
-        //centerPanel.add(createLogPanel(new JPanel(), 200, 0, "Password:"), BorderLayout.CENTER);
-        //centerPanel.add(createLogPanel(new JPanel(), 200, 200, ""), BorderLayout.SOUTH);
-
-
         westPanel = new JPanel();
-        // panel3.setBounds(50,50, 500,400);
         westPanel.setBackground(new Color(100,200,200));
         westPanel.setLayout(new BorderLayout());
         westPanel.setPreferredSize(new Dimension(200,100));
@@ -244,7 +236,6 @@ public class StudGui{
     public void getTheCourses(){
         retrieveCourses();
 
-        System.out.println(daysOfWeek.size());
         for (int i = 0; i < daysOfWeek.size(); i++) {
             fillTableWithCourses(daysOfWeek.get(i), timeFrom.get(i), i);
             fillTableWithCourses(daysOfWeek.get(i), timeUntil.get(i), i);
@@ -257,50 +248,104 @@ public class StudGui{
 
         switch (day) {
             case "monday":
-                System.out.println("add to Monday");
                 columnDay = 1;
                 assignTime(time, columnDay, index);
                 break;
             case "tuesday":
-                System.out.println("add to Tuesday");
                 columnDay = 2;
                 assignTime(time, columnDay, index);
                 break;
             case "wednesday":
-                System.out.println("add to Wednesday");;
                 columnDay = 3;
                 assignTime(time, columnDay, index);
                 break;
             case "thursday":
-                System.out.println("add to Thursday");;
                 columnDay = 4;
                 assignTime(time, columnDay, index);
                 break;
             case "friday":
-                System.out.println("add to Friday");;
                 columnDay = 5;
                 assignTime(time, columnDay, index);
                 break;
             case "saturday":
-                System.out.println("No school at Saturday");;
+                System.out.println("No school at Saturday");
                 break;
             case "sunday":
-                System.out.println("No school at Sunday");;
+                System.out.println("No school at Sunday");
                 break;
             default:
-                System.out.println("wrong day");;
+                System.out.println("wrong day");
                 break;
         }
     }
 
     public void assignTime(String time, int columnday, int index){
-        JTextArea textArea = new JTextArea();
+        textArea = new JTextArea();
         textArea.setLineWrap(true);
         textArea.setEditable(false);
+        textArea.setBackground(new Color(200,200,200));
+        textArea.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+
+
+
+        switch (time){
+            case "08:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[1][columnday].add(textArea);
+                textAreas[1][columnday] = textArea;
+                addingMouseListener(1,columnday);
+                break;
+            case "09:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[2][columnday].add(textArea);
+                textAreas[2][columnday] = textArea;
+                addingMouseListener(2,columnday);
+                break;
+            case "10:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[3][columnday].add(textArea);
+                textAreas[3][columnday] = textArea;
+                addingMouseListener(3,columnday);
+                break;
+            case "11:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[4][columnday].add(textArea);
+                textAreas[4][columnday] = textArea;
+                addingMouseListener(4,columnday);
+                break;
+            case "12:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[5][columnday].add(textArea);
+                textAreas[5][columnday] = textArea;
+                addingMouseListener(5,columnday);
+                break;
+            case "13:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[6][columnday].add(textArea);
+                textAreas[6][columnday] = textArea;
+                addingMouseListener(6,columnday);
+                break;
+            case "14:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[7][columnday].add(textArea);
+                textAreas[7][columnday] = textArea;
+                addingMouseListener(7,columnday);
+                break;
+            case "15:00":
+                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+                timetable[8][columnday].add(textArea);
+                textAreas[8][columnday] = textArea;
+                addingMouseListener(8,columnday);
+                break;
+        }
+    }
+
+    public void addingMouseListener(int i, int columnday){
         textArea.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(user, textArea);
+                SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(user, textAreas[i][columnday], new MyJDBC());
+
             }
 
             @Override
@@ -323,44 +368,8 @@ public class StudGui{
 
             }
         });
-        textArea.setBackground(new Color(200,200,200));
-        textArea.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-
-        switch (time){
-            case "08:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[1][columnday].add(textArea);
-                break;
-            case "09:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[2][columnday].add(textArea);
-                break;
-            case "10:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[3][columnday].add(textArea);
-                break;
-            case "11:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[4][columnday].add(textArea);
-                break;
-            case "12:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[5][columnday].add(textArea);
-                break;
-            case "13:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[6][columnday].add(textArea);
-                break;
-            case "14:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[7][columnday].add(textArea);
-                break;
-            case "15:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[8][columnday].add(textArea);
-                break;
-        }
     }
+
 
     public void retrieveCourses(){
          myJDBC.retrieveRecords("schedule");

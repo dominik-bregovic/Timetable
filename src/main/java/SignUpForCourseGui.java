@@ -8,7 +8,6 @@ public class SignUpForCourseGui implements ActionListener {
     private JFrame signUpFrame;
     private JPanel northPanel;
     private JPanel southPanel;
-    private JPanel subSouthPanel;
     private JPanel westPanel;
     private JPanel eastPanel;
     private JPanel centerPanel;
@@ -16,15 +15,17 @@ public class SignUpForCourseGui implements ActionListener {
     private JButton cancelButton = new JButton();
     private String user;
     private JTextArea userTextField;
+    private MyJDBC jdbc;
 
     public SignUpForCourseGui(){
         /*createFrame();
         createPanel();*/
     }
 
-    public SignUpForCourseGui(String user, JTextArea courseField){
+    public SignUpForCourseGui(String user, JTextArea courseField, MyJDBC jdbc){
         this.user = user;
         this.userTextField =  courseField;
+        this.jdbc = jdbc;
         createFrame();
         createPanel();
     }
@@ -114,8 +115,7 @@ public class SignUpForCourseGui implements ActionListener {
             // process for signing Up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // here i have to get the right subject object and add the students names to it so that i can recognise if the student is already signed in.
             //including save amount of students into database
-            System.out.println(userTextField.getText());
-            Subject sub = new Subject();
+            retrieveSubject();
         }
         if (e.getSource() == cancelButton){
             signUpFrame.dispose();
@@ -127,6 +127,25 @@ public class SignUpForCourseGui implements ActionListener {
         String course = userTextField.getText();
         if (course.contains("Mathematics")){
 
+            if (this.jdbc.searchForRecord("students_student_ID", "subject_student",
+                    this.jdbc.retrieveID("student_ID", "student", "name", this.user))){
+                //create errror frame
+                System.out.println("user already sigened in");
+                ErrorFrame errorFrame = new ErrorFrame();
+
+            }else{
+                /*HibernateSupport.beginTransaction();
+                addStudent(new Student(user));
+                HibernateSupport.commitTransaction();*/
+                System.out.println("should sign user in");
+            }
+
+
+
+        }else if (course.contains("German")){
+            System.out.println("deutsch");
+        }else if (course.contains("English")){
+            System.out.println("english");
         }
     }
 }

@@ -322,6 +322,21 @@ import java.util.Scanner;
                 System.out.println(e.getMessage());
             }
         }
+
+        public String retrieveID(String columnID, String tablename, String columnName ,  String studentsName){
+            try {
+                System.out.println("start");
+                result = state.executeQuery("SELECT * FROM "+ tablename);
+                while (result.next()) {
+                    if (studentsName.contains(result.getString(columnName))) {
+                        return String.valueOf(result.getInt(columnID));
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println(e.getMessage()+"result fail");
+            }
+            return "";
+        }
 /////////////////////////////////////////////////
 
         public static Connection getConnection() {

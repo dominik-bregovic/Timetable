@@ -15,15 +15,14 @@ public class SignUpForCourseGui implements ActionListener {
     private JButton signUpButton = new JButton();
     private JButton cancelButton = new JButton();
     private String user;
-    private JTextArea userTextField;
+    private JTextPane userTextField;
+    private JTextPane text = new JTextPane();
     private MyJDBC jdbc;
 
     public SignUpForCourseGui(){
-        /*createFrame();
-        createPanel();*/
     }
 
-    public SignUpForCourseGui(String user, JTextArea courseField, MyJDBC jdbc){
+    public SignUpForCourseGui(String user, JTextPane courseField, MyJDBC jdbc){
         this.user = user;
         this.userTextField =  courseField;
         this.jdbc = jdbc;
@@ -34,9 +33,7 @@ public class SignUpForCourseGui implements ActionListener {
     public void createFrame(){
         this.signUpFrame = new JFrame();
         this.signUpFrame.getContentPane().setBackground(Color.BLACK);
-        //this.signUpFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.signUpFrame.setSize(500, 300);
-        //this.studFrame.setUndecorated(true);
         this.signUpFrame.setVisible(true);
         this.signUpFrame.setResizable(true);
         this.signUpFrame.setLocationRelativeTo(null);
@@ -64,9 +61,9 @@ public class SignUpForCourseGui implements ActionListener {
         centerPanel.setBackground(new Color(200,200,200));
         centerPanel.setLayout(new FlowLayout());
         centerPanel.setPreferredSize(new Dimension(300,300));
-        userTextField.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-        userTextField.setLineWrap(false);
-        centerPanel.add(userTextField);
+        text.setText(userTextField.getText());
+        text.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+        centerPanel.add(text);
         this.signUpFrame.add(centerPanel, BorderLayout.CENTER);
 
 
@@ -137,7 +134,7 @@ public class SignUpForCourseGui implements ActionListener {
                     this.jdbc.retrieveID("student_ID", "student", "name", this.user))){
 
                 System.out.println("user already sigened in");
-                ErrorFrame errorFrame = new ErrorFrame();
+                ErrorFrame errorFrame = new ErrorFrame(); ///////////////////handle signing out here
 
             }else{
                 try {

@@ -21,8 +21,6 @@ public class StudGui{
     private JPanel westPanel;
     private JPanel eastPanel;
     private JPanel centerPanel;
-    private JTextArea textArea;
-    private JTextArea[][] textAreas = new JTextArea[9][7];
     private JPanel[][] timetable = new JPanel[9][7];
     private boolean[][] timetableFieldEmpty = new boolean[9][7];
     private JButton signUpButton = new JButton();
@@ -279,72 +277,51 @@ public class StudGui{
         }
     }
 
-    public void assignTime(String time, int columnday, int index){
-        textArea = new JTextArea();
-        textArea.setLineWrap(true);
-        textArea.setEditable(false);
-        textArea.setBackground(new Color(200,200,200));
-        textArea.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-
-
+    public void assignTime(String time, int columnDay, int index){
 
         switch (time){
             case "08:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[1][columnday].add(textArea);
-                textAreas[1][columnday] = textArea;
-                addingMouseListener(1,columnday);
+                timetable[1][columnDay].add(createTextArea(index));
                 break;
             case "09:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[2][columnday].add(textArea);
-                textAreas[2][columnday] = textArea;
-                addingMouseListener(2,columnday);
+                timetable[2][columnDay].add(createTextArea(index));
                 break;
             case "10:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[3][columnday].add(textArea);
-                textAreas[3][columnday] = textArea;
-                addingMouseListener(3,columnday);
+                timetable[3][columnDay].add(createTextArea(index));
                 break;
             case "11:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[4][columnday].add(textArea);
-                textAreas[4][columnday] = textArea;
-                addingMouseListener(4,columnday);
+                timetable[4][columnDay].add(createTextArea(index));
                 break;
             case "12:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[5][columnday].add(textArea);
-                textAreas[5][columnday] = textArea;
-                addingMouseListener(5,columnday);
+                timetable[5][columnDay].add(createTextArea(index));
                 break;
             case "13:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[6][columnday].add(textArea);
-                textAreas[6][columnday] = textArea;
-                addingMouseListener(6,columnday);
+                timetable[6][columnDay].add(createTextArea(index));
                 break;
             case "14:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[7][columnday].add(textArea);
-                textAreas[7][columnday] = textArea;
-                addingMouseListener(7,columnday);
+                timetable[7][columnDay].add(createTextArea(index));
                 break;
             case "15:00":
-                textArea.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
-                timetable[8][columnday].add(textArea);
-                textAreas[8][columnday] = textArea;
-                addingMouseListener(8,columnday);
+                timetable[8][columnDay].add(createTextArea(index));
                 break;
         }
     }
 
-    public void addingMouseListener(int i, int columnday){
-        textArea.addMouseListener(new MouseListener() {
+    public JTextPane createTextArea(int index){
+        JTextPane textPane = new JTextPane();
+        textPane.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
+        textPane.setEditable(false);
+        textPane.setBackground(new Color(200,200,200));
+        textPane.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+        addingMouseListener(textPane);
+        return textPane;
+    }
+
+    public void addingMouseListener(JTextPane textPane){
+        textPane.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(user, textAreas[i][columnday], new MyJDBC());
+                SignUpForCourseGui signUpForCourseGui = new SignUpForCourseGui(user, textPane, new MyJDBC());
 
             }
 

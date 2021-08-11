@@ -10,10 +10,10 @@ public class ErrorFrame implements ActionListener {
     private JPanel northPanel;
     private JPanel southPanel;
     private JPanel subSouthPanel;
-    private JPanel westPanel;
-    private JPanel eastPanel;
+    /*private JPanel westPanel;
+    private JPanel eastPanel;*/
     private JPanel centerPanel;
-    private JButton okButton;
+    private JButton okButton = new JButton();
 
     public ErrorFrame(){
         createFrame();
@@ -23,9 +23,8 @@ public class ErrorFrame implements ActionListener {
     public void createFrame(){
         this.errorFrame = new JFrame();
         this.errorFrame.getContentPane().setBackground(Color.white);
-        this.errorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        this.errorFrame.setSize(screenSize.width, screenSize.height);
+        //this.errorFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.errorFrame.setSize(400, 300);
         //this.studFrame.setUndecorated(true);
         this.errorFrame.setVisible(true);
         this.errorFrame.setResizable(true);
@@ -37,8 +36,8 @@ public class ErrorFrame implements ActionListener {
         northPanel = new JPanel();
         northPanel.setBackground(new Color(200,200,200));
         northPanel.setLayout(new BorderLayout());
-        northPanel.setPreferredSize(new Dimension(100,70));
-        northPanel.add(createHeaderLabel(new JLabel(), "Student-timetable", 50), BorderLayout.NORTH);
+        northPanel.setPreferredSize(new Dimension(100,50));
+        northPanel.add(createHeaderLabel(new JLabel(), "", 50), BorderLayout.NORTH);
         this.errorFrame.add(northPanel, BorderLayout.NORTH);
 
         southPanel = new JPanel();
@@ -58,25 +57,26 @@ public class ErrorFrame implements ActionListener {
 
         centerPanel = new JPanel();
         centerPanel.setBackground(Color.WHITE);
-        centerPanel.setLayout(new GridLayout(0,7));
-        centerPanel.setPreferredSize(new Dimension(300,300));
+        centerPanel.setLayout(new BorderLayout());
+        centerPanel.setPreferredSize(new Dimension(300,100));
+        centerPanel.add(createHeaderLabel(new JLabel(), "You are already signed in!", 30), BorderLayout.CENTER);
         this.errorFrame.add(centerPanel, BorderLayout.CENTER);
 
-        westPanel = new JPanel();
+      /*  westPanel = new JPanel();
         westPanel.setBackground(new Color(100,200,200));
         westPanel.setLayout(new BorderLayout());
-        westPanel.setPreferredSize(new Dimension(200,100));
+        westPanel.setPreferredSize(new Dimension(50,100));
         this.errorFrame.add(westPanel, BorderLayout.WEST);
 
 
         eastPanel = new JPanel();
         eastPanel.setBackground(new Color(100,200,200));
         eastPanel.setLayout(new BorderLayout());
-        eastPanel.setPreferredSize(new Dimension(200,100));
+        eastPanel.setPreferredSize(new Dimension(50,100));
         //eastPanel.add(createLogPanelInput(new JPanel(), 100, 70, "Username:"), BorderLayout.NORTH);
         //eastPanel.add(createLogPanelPassInput(new JPanel(), 100, 0, "Password:"), BorderLayout.CENTER);
         //eastPanel.add(createLogPanel(new JPanel(), 200, 200, ""), BorderLayout.SOUTH);
-        this.errorFrame.add(eastPanel, BorderLayout.EAST);
+        this.errorFrame.add(eastPanel, BorderLayout.EAST);*/
     }
 
     public JLabel createHeaderLabel(JLabel label, String text, int fontsize){

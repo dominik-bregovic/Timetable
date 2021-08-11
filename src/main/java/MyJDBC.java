@@ -258,7 +258,7 @@ import java.util.Scanner;
             }
         }
 
-    /*public static void insertIntoStudentsTable(String firstname, String lastname, String password) throws SQLException {
+    public static void insertIntoStudentsTable(String firstname, String lastname, String password) throws SQLException {
 
         stmt = connection.prepareStatement("INSERT INTO students (firstname,lastname,password)VALUES(?, ?, ?)");
 
@@ -277,14 +277,14 @@ import java.util.Scanner;
         }
     }
 
-    public static void insertIntoAdminTable(String firstname, String lastname) throws SQLException {
+    public static void insertIntoAdminTable(int firstname, int password) throws SQLException {
 
-        stmt = connection.prepareStatement("INSERT INTO administrator (firstname,lastname)VALUES(?, ?)");
+        stmt = connection.prepareStatement("INSERT INTO subject_student (Subject_subject_id, students_student_ID)VALUES(?, ?)");
 
         try {
 
-            stmt.setString(1, firstname);
-            stmt.setString(2, lastname);
+            stmt.setInt(1, firstname);
+            stmt.setInt(2, password);
             stmt.addBatch();
             stmt.executeBatch();
 
@@ -293,7 +293,25 @@ import java.util.Scanner;
                     stmt.getWarnings().getSQLState(),
                     stmt.getWarnings().getErrorCode());
         }
-    }*/
+    }
+    public static void insertIntoScheduleStudentTable(String subject_id, String stud_id) throws SQLException {
+
+        stmt = connection.prepareStatement("INSERT INTO subject_student (Subject_subject_id, students_student_ID)VALUES(?, ?)");
+
+        try {
+
+            stmt.setString(1, subject_id);
+            stmt.setString(2, stud_id);
+            stmt.addBatch();
+            stmt.executeBatch();
+
+        } catch (SQLException e) {
+            throw new SQLException(stmt.getWarnings().getMessage(),
+                    stmt.getWarnings().getSQLState(),
+                    stmt.getWarnings().getErrorCode());
+        }
+    }
+
 
         ////////////////////////////////////////////////////////////////////////////
 

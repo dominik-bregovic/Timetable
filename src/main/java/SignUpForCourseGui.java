@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 public class SignUpForCourseGui implements ActionListener {
 
@@ -122,24 +123,31 @@ public class SignUpForCourseGui implements ActionListener {
         }
 
     }
-
+        /*
+        * Here we are signing the student up for his course over the Database by jdbc
+        * First we are retrieving the course he wants to sign up and the assign him to this course
+        * if the user tries to sign in again, then an error is thrown
+        */
     public void retrieveSubject(){
         String course = userTextField.getText();
+
         if (course.contains("Mathematics")){
 
             if (this.jdbc.searchForRecord("students_student_ID", "subject_student",
                     this.jdbc.retrieveID("student_ID", "student", "name", this.user))){
-                //create errror frame
+
                 System.out.println("user already sigened in");
                 ErrorFrame errorFrame = new ErrorFrame();
 
             }else{
-                /*HibernateSupport.beginTransaction();
-                addStudent(new Student(user));
-                HibernateSupport.commitTransaction();*/
-                System.out.println("should sign user in");
+                try {
+                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", course),
+                                                        this.jdbc.retrieveID("student_ID", "student", "name", this.user));
+                    signUpFrame.dispose();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-
 
 
         }else if (course.contains("German")){

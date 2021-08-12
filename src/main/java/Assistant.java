@@ -1,5 +1,11 @@
 import javax.persistence.*;
 
+/*
+ * Author: Bregovic Dominik
+ * hibernate assistant class
+ * Last change: 12.08.2021
+ */
+
     @Entity
     public class Assistant extends User {
         @Id
@@ -55,11 +61,8 @@ import javax.persistence.*;
 
 
         @Override
-        public boolean saveToDB() {
-            if (HibernateSupport.commit(this)){
-                return false;
-            }
-            return false;
+        public void saveToDB() {
+            HibernateSupport.commit(this);
         }
 
         @Override

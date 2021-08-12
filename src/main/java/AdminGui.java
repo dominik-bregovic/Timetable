@@ -7,17 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+
+/*
+ * Author: Bregovic Dominik
+ * creates the Gui for the Administrator all actions are getting saved into database
+ * Last change: 12.08.2021
+ */
 
 public class AdminGui implements ActionListener {
     private JFrame adminFrame;
-    private JPanel northPanel;
-    private JPanel southPanel;
-    private JPanel subEastPanel;
-    private JPanel westPanel;
-    private JPanel eastPanel;
-    private JPanel centerPanel;
     private JButton createCourseButton = new JButton();
     private JButton addRoomButton = new JButton();
     private JButton updateScheduleButton = new JButton();
@@ -27,9 +25,6 @@ public class AdminGui implements ActionListener {
     private JPanel scheduleViewPanel = new JPanel();
     private JPanel organisationViewPanel = new JPanel();
     private MyJDBC jdbc = new MyJDBC();
-    private ResultSet resultSet;
-    private List<String> courseNames = new ArrayList<>();
-
 
     public AdminGui(){
         createFrame();
@@ -49,69 +44,53 @@ public class AdminGui implements ActionListener {
     }
 
     public void createPanel(){
-        northPanel = new JPanel();
+        JPanel northPanel = new JPanel();
         northPanel.setBackground(new Color(200,200,200));
         northPanel.setLayout(new BorderLayout());
         northPanel.setPreferredSize(new Dimension(100,70));
         northPanel.add(createHeaderLabel(new JLabel(), "Admin-Interface", 50), BorderLayout.NORTH);
         this.adminFrame.add(northPanel, BorderLayout.NORTH);
 
-        southPanel = new JPanel();
+        JPanel southPanel = new JPanel();
         southPanel.setBackground(new Color(200,200,200));
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(200,50));
         this.adminFrame.add(southPanel, BorderLayout.SOUTH);
 
-        centerPanel = new JPanel();
+        JPanel centerPanel = new JPanel();
         centerPanel.setBackground(Color.WHITE);
         centerPanel.setLayout(new GridLayout(4,0, 0 ,25));
         centerPanel.setPreferredSize(new Dimension(300,300));
-        centerPanel.add(createCourseViewPanel(courseViewPanel));
-        centerPanel.add(createRoomViewPanel(roomViewPanel));
-        centerPanel.add(createPanel(scheduleViewPanel));
-        centerPanel.add(createPanel(organisationViewPanel));
+        centerPanel.add(createCourseViewPanel(this.courseViewPanel));
+        centerPanel.add(createRoomViewPanel(this.roomViewPanel));
+        centerPanel.add(createPanel(this.scheduleViewPanel));
+        centerPanel.add(createPanel(this.organisationViewPanel));
         this.adminFrame.add(centerPanel, BorderLayout.CENTER);
 
 
-        westPanel = new JPanel();
-        westPanel.setBackground(new Color(100,200,200));
+        JPanel westPanel = new JPanel();
+        westPanel.setBackground(Color.WHITE);
         westPanel.setLayout(new BorderLayout());
         westPanel.setPreferredSize(new Dimension(200,100));
         this.adminFrame.add(westPanel, BorderLayout.WEST);
 
 
-        eastPanel = new JPanel();
-        eastPanel.setBackground(new Color(100,200,200));
+        JPanel eastPanel = new JPanel();
+        eastPanel.setBackground(Color.WHITE);
         eastPanel.setLayout(new GridLayout(4,0, 0, 50));
         eastPanel.setPreferredSize(new Dimension(200,100));
-        eastPanel.add(createButton(createCourseButton, "create Course"));
-        eastPanel.add(createButton(addRoomButton, "add Room"));
-        eastPanel.add(createButton(updateScheduleButton, "update Schedule"));
-        eastPanel.add(createButton(updateInfoButton,"Organisation"));
+        eastPanel.add(createButton(this.createCourseButton, "create Course"));
+        eastPanel.add(createButton(this.addRoomButton, "add Room"));
+        eastPanel.add(createButton(this.updateScheduleButton, "update Schedule"));
+        eastPanel.add(createButton(this.updateInfoButton,"Organisation"));
         this.adminFrame.add(eastPanel, BorderLayout.EAST);
 
-        /*subEastPanel = new JPanel();
-        subEastPanel.setBackground(new Color(200,200,200));
-        subEastPanel.setLayout(new FlowLayout());
-        subEastPanel.setPreferredSize(new Dimension(150,50));
-
-        subEastPanel.add(new JLabel());
-        this.eastPanel.add(subEastPanel);*/
     }
 
     public JLabel createHeaderLabel(JLabel label, String text, int fontsize){
-
         label.setText(text);
         label.setForeground(Color.BLACK);
         label.setFont(new Font("TIMES NEW ROMAN", Font.PLAIN, fontsize));
-        //label.setBackground(Color.MAGENTA); //set Background color
-        //label.setOpaque(true);     //with this Background pixels are changed
-        //label.setVerticalTextPosition(JLabel.CENTER);            //positioning text to image
-        //label.setHorizontalTextPosition(JLabel.CENTER);       //positioning text to image
-        //label.setVerticalAlignment(JLabel.CENTER); // set place of label only by BorderLayout
-        //label.setHorizontalAlignment(JLabel.LEFT);
-        //label.setBounds(0,0,750,100);       //set label within frame
-
         return label;
     }
 
@@ -133,20 +112,20 @@ public class AdminGui implements ActionListener {
     public JPanel createCourseViewPanel(JPanel panel){
         panel.setBackground(Color.GRAY);
         panel.setPreferredSize(new Dimension(200,100));
-        makeView("subject","subject_Name", courseViewPanel);
+        makeView("subject","subject_Name", this.courseViewPanel);
         return panel;
     }
 
     public JPanel createRoomViewPanel(JPanel panel){
         panel.setBackground(Color.GRAY);
         panel.setPreferredSize(new Dimension(200,100));
-        makeView("room","room_ID", roomViewPanel);
+        makeView("room","room_ID", this.roomViewPanel);
         return panel;
     }
 
     public void makeView(String table, String column, JPanel panel){
-        jdbc.retrieveRecords(table);
-        resultSet = jdbc.getResult();
+        this.jdbc.retrieveRecords(table);
+        ResultSet resultSet = this.jdbc.getResult();
         panel.setLayout(new GridLayout(0,5,20,10));
         try {
             while (resultSet.next()){
@@ -171,46 +150,14 @@ public class AdminGui implements ActionListener {
     }
     ////////////////////////////////created view of the courses and rooms
 
-    public JLabel createLabel(JLabel label, String text, int fontsize){
-
-        label.setText(text);
-        label.setForeground(Color.BLACK);
-        label.setFont(new Font("TIMES NEW ROMAN", Font.PLAIN, fontsize));
-        //label.setBackground(Color.MAGENTA); //set Background color
-        //label.setOpaque(true);     //with this Background pixels are changed
-        //label.setVerticalTextPosition(JLabel.CENTER);            //positioning text to image
-        //label.setHorizontalTextPosition(JLabel.CENTER);       //positioning text to image
-        //label.setVerticalAlignment(JLabel.CENTER); // set place of label only by BorderLayout
-        //label.setHorizontalAlignment(JLabel.LEFT);
-        //label.setBounds(0,0,750,100);       //set label within frame
-
-        return label;
-    }
-
-    public void createAdmin(Administrator admin){
-        HibernateSupport.beginTransaction();
-        admin.saveToDB();
-        HibernateSupport.commitTransaction();
-    }
-
-    public void createAssist(){
-
-    }
-
-    public void createStud(){
-
-    }
-
-
     public JButton getCreateCourseButton() {
         return createCourseButton;
     }
 
-
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == createCourseButton){
-            CreateCourse course = new CreateCourse();
+            CreateCourse course = new CreateCourse(new StudGui(jdbc, false));
         }
     }
 }

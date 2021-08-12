@@ -3,6 +3,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+/*
+ * Author: Bregovic Dominik
+ * hibernate student class
+ * Last change: 12.08.2021
+ */
+
 @Entity
 public class Student extends User {
     @Id @GeneratedValue
@@ -39,11 +45,9 @@ public class Student extends User {
     }
 
     @Override
-    public boolean saveToDB() {
+    public void saveToDB() {
         if (HibernateSupport.commit(this)){
-            return false;
         }
-        return false;
     }
 
     @Override

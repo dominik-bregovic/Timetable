@@ -1,6 +1,11 @@
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+/*
+ * Author: Bregovic Dominik
+ * hibernate subject class
+ * Last change: 12.08.2021
+ */
 
 @Entity
 public class Subject implements SaveAndDelete {
@@ -31,7 +36,6 @@ public class Subject implements SaveAndDelete {
         this.subjectName = subjectName;
     }
 
-
     public List<Student> getStudents() {
         return students;
     }
@@ -47,11 +51,8 @@ public class Subject implements SaveAndDelete {
 
 
     @Override
-    public boolean saveToDB() {
-        if (HibernateSupport.commit(this)){
-            return false;
-        }
-        return false;
+    public void saveToDB() {
+        HibernateSupport.commit(this);
     }
 
     @Override

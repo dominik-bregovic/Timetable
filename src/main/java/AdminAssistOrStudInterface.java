@@ -2,6 +2,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+ * Author: Bregovic Dominik
+ * here the user input decides which interface is getting accessed
+ * Last change: 12.08.2021
+ */
+
 public class AdminAssistOrStudInterface implements ActionListener{
 
     LogGui logGui;
@@ -25,22 +31,14 @@ public class AdminAssistOrStudInterface implements ActionListener{
     }
 
     public void retrieveLogData(){
-        loginButton = logGui.getLoginButton();
-        loginButton.addActionListener(this);
-        userName = logGui.getUserNameInput();
-        userName.addActionListener(this);
-        userPass = logGui.getUserPasswordInput();
-        userPass.addActionListener(this);
+        this.loginButton = logGui.getLoginButton();
+        this.loginButton.addActionListener(this);
+        this.userName = logGui.getUserNameInput();
+        this.userName.addActionListener(this);
+        this.userPass = logGui.getUserPasswordInput();
+        this.userPass.addActionListener(this);
 
     }
-
-   /* public void getInput(){
-        logGui.getUserNameInput().getText();
-        userName = user.getText();
-        user.setText("");
-        password = pass.getText();
-        pass.setText("");
-    }*/
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -50,7 +48,6 @@ public class AdminAssistOrStudInterface implements ActionListener{
                     myJDBC.searchForRecord("password", "student",userPass.getText())) {
                 //TODO call stud frame
                 studInterface(userNameInput);
-                //only have to implement the possibility to sign up for courses
             }
             if (myJDBC.searchForRecord("name", "assistant",userName.getText()) &&
                     myJDBC.searchForRecord("password", "assistant",userPass.getText())){
@@ -63,6 +60,7 @@ public class AdminAssistOrStudInterface implements ActionListener{
                 adminInterface();
             }else{
                 //TODO is no user, call error frame
+                //InfoFrame infoFrame = new InfoFrame("No such User");
             }
             userName.setText("");
             userPass.setText("");
@@ -73,7 +71,7 @@ public class AdminAssistOrStudInterface implements ActionListener{
 
     public void studInterface(String user){
         this.logGui.closeLogFrame();
-        this.studGui = new StudGui(myJDBC, user);
+        this.studGui = new StudGui(myJDBC, user, true);
     }
 
     public void assistInterface(){

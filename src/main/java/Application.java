@@ -1,7 +1,12 @@
+/*
+ * Author: Bregovic Dominik
+ * initializing database with a few starting values
+ * it is the main class
+ * Last change: 12.08.2021
+ */
 public class Application {
 
     public static void main(String[] args) {
-        // making objects will be part of Admin and Assist
         initializeDatabase();
     }
 
@@ -49,10 +54,7 @@ public class Application {
 
         HibernateSupport.commitTransaction();
 
-        //StudGui studGui = new StudGui();
-        //LogGui gui = new LogGui();
+        // here starting the interface-Part
         AdminAssistOrStudInterface logic = new AdminAssistOrStudInterface(new LogGui(), new MyJDBC());
-        //if (logic.myJDBC.searchForRecord("name", "assistant", "Tom"))
-        //    System.out.println("Hallo");
     }
 }

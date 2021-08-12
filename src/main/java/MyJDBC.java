@@ -1,11 +1,10 @@
 import java.sql.*;
-import java.util.Locale;
 import java.util.Scanner;
 
     /*
      * Author: Bregovic Dominik
      * jdbc create-insert-delete
-     * Last change: 30.05.2021
+     * Last change: 12.08.2021
      */
 
     public class MyJDBC {
@@ -41,212 +40,24 @@ import java.util.Scanner;
                     System.out.println("State = " + e.getSQLState());
                     e = e.getNextException();
                 }
-            }/*finally {
-            try {
-                if (state != null){state.close();}
-                if (stmt != null){stmt.close();}
-                if (connection != null){connection.close();}
-            }catch (SQLException e){
-                e.printStackTrace();
             }
-        }*/
         }
 ////////////////////////////////////////////////////////////////////////////////
 
-        public void createTables() throws SQLException{
-            try {
-                createAdminTable();
-                createProfTable();
-                createStudentsTable();
-                createRoom();
-                createCourses();
-                createSchedule();
 
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
+        public void insertIntoScheduleTable(String assistant,String day, String dayOfWeek, String subject, String timeFrom, String timeTo, String room_room_ID) throws SQLException {
 
-
-        private void createAdminTable() throws SQLException{
-
-            String createTable;
-            createTable = "CREATE TABLE IF NOT EXISTS administrator (id INT(11) NOT NULL AUTO_INCREMENT,"
-                    + " firstname VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "lastname VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "PRIMARY KEY (id))";
+            stmt = connection.prepareStatement("INSERT INTO schedule (date_day, week_day, course_name, prof_Id, location)VALUES(?, ?, ?, ?, ?, ?, ?)");
 
             try {
-                state.executeUpdate(createTable);
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
+                stmt.setString(1, assistant);
+                stmt.setString(2, day);
+                stmt.setString(3, dayOfWeek);
+                stmt.setString(4, subject);
+                stmt.setString(5, timeFrom);
+                stmt.setString(6, timeTo);
+                stmt.setString(7, room_room_ID);
 
-        private void createProfTable() throws SQLException{
-
-            String createTable;
-            createTable = "CREATE TABLE IF NOT EXISTS " + "professors" + " (id INT(11) NOT NULL AUTO_INCREMENT,"
-                    + " firstname VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "lastname VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "coursename  VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci,"
-                    + "password VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "PRIMARY KEY (id))";
-
-            try {
-                state.executeUpdate(createTable);
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
-
-        private void createStudentsTable() throws SQLException{
-
-            String createTable;
-            createTable = "CREATE TABLE IF NOT EXISTS " + "students" + " (id INT(11) NOT NULL AUTO_INCREMENT,"
-                    + " firstname VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "lastname VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "password VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "PRIMARY KEY (id))";
-
-            try {
-                state.executeUpdate(createTable);
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
-
-        private void createCourses() throws SQLException{
-
-            String createTable;
-            createTable = "CREATE TABLE IF NOT EXISTS " + "courses" + " (id INT(11) NOT NULL AUTO_INCREMENT,"
-                    + " course_name VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + " proff_Id INT(11) NOT NULL, "
-                    + "PRIMARY KEY (id))";
-
-            try {
-                state.executeUpdate(createTable);
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
-
-        private void createSchedule() throws SQLException{
-
-            String createTable;
-            createTable = "CREATE TABLE IF NOT EXISTS " + "schedule" + " (date_day VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci,"
-                    + " week_day VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + " course_name VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + " prof_Id INT(11) NOT NULL, "
-                    + " location VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "PRIMARY KEY (week_day))";
-
-            try {
-                state.executeUpdate(createTable);
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
-
-        private  void createRoom() throws SQLException{
-
-            String createTable;
-            createTable = "CREATE TABLE IF NOT EXISTS " + "rooms" + " (room_nr INT(11) NOT NULL,"
-                    + " room_location VARCHAR(255) NOT NULL COLLATE utf8_unicode_ci, "
-                    + "PRIMARY KEY (room_NR))";
-
-            try {
-                state.executeUpdate(createTable);
-            }catch (SQLException e){
-                throw new SQLException(state.getWarnings().getMessage(),
-                        state.getWarnings().getSQLState(),
-                        state.getWarnings().getErrorCode());
-            }
-        }
-
-        /////////////////////////////////////////////////////////////////////////
-
-    /*private static void insertCoursesInTable(String courseName, int index) throws SQLException{
-
-        stmt = connection.prepareStatement("INSERT INTO courses (course_name, proff_Id)VALUES(?, ?)");
-
-        try {
-
-            stmt.setString(1, courseName);
-            stmt.setInt(2, index);
-
-            stmt.addBatch();
-
-            stmt.executeBatch();
-
-        } catch (SQLException e) {
-            throw new SQLException(stmt.getWarnings().getMessage(),
-                    stmt.getWarnings().getSQLState(),
-                    stmt.getWarnings().getErrorCode());
-        }
-    }
-
-    private static void insertRoomsInTable(int room_nr, String location) throws SQLException{
-
-        stmt = connection.prepareStatement("INSERT INTO rooms (room_nr, room_location)VALUES(?, ?)");
-
-        try {
-
-            stmt.setInt(1, room_nr);
-            stmt.setString(2, location);
-            stmt.addBatch();
-
-            stmt.executeBatch();
-
-        } catch (SQLException e) {
-            throw new SQLException(stmt.getWarnings().getMessage(),
-                    stmt.getWarnings().getSQLState(),
-                    stmt.getWarnings().getErrorCode());
-        }
-    }
-
-    public static void insertIntoProfessorTable(String firstname, String lastname, String course, String password) throws SQLException {
-
-        stmt = connection.prepareStatement("INSERT INTO professors (firstname,lastname,coursename, password)VALUES(?, ?, ?, ?)");
-
-        try {
-
-            stmt.setString(1, firstname);
-            stmt.setString(2, lastname);
-            stmt.setString(3, course);
-            stmt.setString(4, password);
-            stmt.addBatch();
-            stmt.executeBatch();
-
-        } catch (SQLException e) {
-            throw new SQLException(stmt.getWarnings().getMessage(),
-                    stmt.getWarnings().getSQLState(),
-                    stmt.getWarnings().getErrorCode());
-        }
-    }*/
-
-        public void insertIntoScheduleTable(String date_day,String week_day, String course_name, int prof_Id, String location) throws SQLException {
-
-            stmt = connection.prepareStatement("INSERT INTO schedule (date_day, week_day, course_name, prof_Id, location)VALUES(?, ?, ?, ?, ?)");
-
-            try {
-                stmt.setString(1, date_day);
-                stmt.setString(2, week_day);
-                stmt.setString(3, course_name);
-                stmt.setInt(4, prof_Id);
-                stmt.setString(5, location);
                 stmt.addBatch();
                 stmt.executeBatch();
 
@@ -258,42 +69,7 @@ import java.util.Scanner;
             }
         }
 
-    public static void insertIntoStudentsTable(String firstname, String lastname, String password) throws SQLException {
 
-        stmt = connection.prepareStatement("INSERT INTO students (firstname,lastname,password)VALUES(?, ?, ?)");
-
-        try {
-
-            stmt.setString(1, firstname);
-            stmt.setString(2, lastname);
-            stmt.setString(3, password);
-            stmt.addBatch();
-            stmt.executeBatch();
-
-        } catch (SQLException e) {
-            throw new SQLException(stmt.getWarnings().getMessage(),
-                    stmt.getWarnings().getSQLState(),
-                    stmt.getWarnings().getErrorCode());
-        }
-    }
-
-    public static void insertIntoAdminTable(int firstname, int password) throws SQLException {
-
-        stmt = connection.prepareStatement("INSERT INTO subject_student (Subject_subject_id, students_student_ID)VALUES(?, ?)");
-
-        try {
-
-            stmt.setInt(1, firstname);
-            stmt.setInt(2, password);
-            stmt.addBatch();
-            stmt.executeBatch();
-
-        } catch (SQLException e) {
-            throw new SQLException(stmt.getWarnings().getMessage(),
-                    stmt.getWarnings().getSQLState(),
-                    stmt.getWarnings().getErrorCode());
-        }
-    }
     public static void insertIntoScheduleStudentTable(String subject_id, String stud_id) throws SQLException {
 
         stmt = connection.prepareStatement("INSERT INTO subject_student (Subject_subject_id, students_student_ID)VALUES(?, ?)");
@@ -311,24 +87,6 @@ import java.util.Scanner;
                     stmt.getWarnings().getErrorCode());
         }
     }
-
-        public static void insertIntoCoursesTable(String courseName) throws SQLException {
-
-            stmt = connection.prepareStatement("INSERT INTO subject (subject_Name)VALUES(?)");
-
-            try {
-
-                stmt.setString(1, courseName);
-                stmt.addBatch();
-                stmt.executeBatch();
-
-            } catch (SQLException e) {
-                throw new SQLException(stmt.getWarnings().getMessage(),
-                        stmt.getWarnings().getSQLState(),
-                        stmt.getWarnings().getErrorCode());
-            }
-        }
-
 
         ////////////////////////////////////////////////////////////////////////////
 
@@ -371,43 +129,7 @@ import java.util.Scanner;
             }
             return "";
         }
-/////////////////////////////////////////////////
-
-        public static Connection getConnection() {
-            return connection;
-        }
-
-        public static PreparedStatement getStmt() {
-            return stmt;
-        }
-
-
-    /*public static void validation(){
-        String input;
-
-        try {
-            System.out.print("Please enter an ID:");
-            input = scan.nextLine();
-            validateID = Long.valueOf(input);
-        }catch (Exception e){
-            validation();
-        }
-        if (validateID <= 0){
-            validation();
-        }
-
-    }*/
-
-        public static void sendingDeleteRequest(String firstnames){
-            try {
-                String delete = "DELETE FROM professors WHERE firstname = "+ firstnames;
-                state.executeUpdate(delete);
-
-            }catch (Exception e){
-                System.err.println(e.getMessage());
-            }
-        }
-
+        /////////////////////////////////////////////////
 
         public static ResultSet getResult() {
             return result;

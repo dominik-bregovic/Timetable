@@ -4,14 +4,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+/*
+ * Author: Bregovic Dominik
+ * created gui that lets us save us which student wants to visit which course
+ * Last change: 12.08.2021
+ */
+
 public class SignUpForCourseGui implements ActionListener {
 
     private JFrame signUpFrame;
-    private JPanel northPanel;
-    private JPanel southPanel;
-    private JPanel westPanel;
-    private JPanel eastPanel;
-    private JPanel centerPanel;
     private JButton signUpButton = new JButton();
     private JButton cancelButton = new JButton();
     private String user;
@@ -41,14 +42,14 @@ public class SignUpForCourseGui implements ActionListener {
     }
 
     public void createPanel(){
-        northPanel = new JPanel();
+        JPanel northPanel = new JPanel();
         northPanel.setBackground(new Color(200,200,200));
         northPanel.setLayout(new BorderLayout());
         northPanel.setPreferredSize(new Dimension(100,70));
         northPanel.add(createHeaderLabel(new JLabel(), "Do you want to sign up for this course?", 25), BorderLayout.CENTER);
         this.signUpFrame.add(northPanel, BorderLayout.NORTH);
 
-        southPanel = new JPanel();
+        JPanel southPanel = new JPanel();
         southPanel.setBackground(new Color(200,200,200));
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(200,50));
@@ -57,7 +58,7 @@ public class SignUpForCourseGui implements ActionListener {
         this.signUpFrame.add(southPanel, BorderLayout.SOUTH);
 
 
-        centerPanel = new JPanel();
+        JPanel centerPanel = new JPanel();
         centerPanel.setBackground(new Color(200,200,200));
         centerPanel.setLayout(new FlowLayout());
         centerPanel.setPreferredSize(new Dimension(300,300));
@@ -67,14 +68,14 @@ public class SignUpForCourseGui implements ActionListener {
         this.signUpFrame.add(centerPanel, BorderLayout.CENTER);
 
 
-        westPanel = new JPanel();
+        JPanel westPanel = new JPanel();
         westPanel.setBackground(new Color(200,200,200));
         westPanel.setLayout(new BorderLayout());
         westPanel.setPreferredSize(new Dimension(100,100));
         this.signUpFrame.add(westPanel, BorderLayout.WEST);
 
 
-        eastPanel = new JPanel();
+        JPanel eastPanel = new JPanel();
         eastPanel.setBackground(new Color(200,200,200));
         eastPanel.setLayout(new BorderLayout());
         eastPanel.setPreferredSize(new Dimension(100,100));
@@ -86,14 +87,8 @@ public class SignUpForCourseGui implements ActionListener {
         label.setText(text);
         label.setForeground(Color.BLACK);
         label.setFont(new Font("TIMES NEW ROMAN", Font.PLAIN, fontsize));
-        //label.setBackground(Color.MAGENTA); //set Background color
-        //label.setOpaque(true);     //with this Background pixels are changed
-        //label.setVerticalTextPosition(JLabel.CENTER);            //positioning text to image
-        //label.setHorizontalTextPosition(JLabel.CENTER);       //positioning text to image
         label.setVerticalAlignment(JLabel.CENTER); // set place of label only by BorderLayout
         label.setHorizontalAlignment(JLabel.CENTER);
-        //label.setBounds(0,0,750,100);       //set label within frame
-
         return label;
     }
 
@@ -106,9 +101,7 @@ public class SignUpForCourseGui implements ActionListener {
         return button;
     }
 
-    // process for signing Up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    // here i have to get the right subject object and add the students names to it so that i can recognise if the student is already signed in.
-    //including save amount of students into database
+    // process for signing Up
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == signUpButton){
@@ -125,7 +118,7 @@ public class SignUpForCourseGui implements ActionListener {
         * if the user tries to sign in again, then an error is thrown
         */
     public void signUp(){
-        String course = userTextField.getText();
+        String course = this.userTextField.getText();
 
         if (course.contains("Mathematics")){
 
@@ -134,14 +127,14 @@ public class SignUpForCourseGui implements ActionListener {
                     && this.jdbc.searchForRecord("Subject_subject_id", "subject_student",
                     this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "Mathematics"))){
 
-                ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
+                InfoFrame errorFrame = new InfoFrame(this.signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
 
             }else{
                 try {
-                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "Mathematics"),
+                    this.jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "Mathematics"),
                             this.jdbc.retrieveID("student_ID", "student", "name", this.user));
-                    signUpFrame.dispose();
-                    ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "Signed-up!");
+                    this.signUpFrame.dispose();
+                    InfoFrame errorFrame = new InfoFrame(this.signUpFrame, "Signed-up!");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -155,14 +148,14 @@ public class SignUpForCourseGui implements ActionListener {
                 && this.jdbc.searchForRecord("Subject_subject_id", "subject_student",
                     this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "German"))){
 
-                ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
+                InfoFrame errorFrame = new InfoFrame(this.signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
 
             }else{
                 try {
-                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "German"),
+                    this.jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "German"),
                             this.jdbc.retrieveID("student_ID", "student", "name", this.user));
-                    signUpFrame.dispose();
-                    ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "Signed-up!");
+                    this.signUpFrame.dispose();
+                    InfoFrame errorFrame = new InfoFrame(this.signUpFrame, "Signed-up!");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -174,14 +167,14 @@ public class SignUpForCourseGui implements ActionListener {
                 && this.jdbc.searchForRecord("Subject_subject_id", "subject_student",
                     this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "English"))){
 
-                ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
+                InfoFrame errorFrame = new InfoFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
 
             }else{
                 try {
-                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "English"),
+                    this.jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "English"),
                             this.jdbc.retrieveID("student_ID", "student", "name", this.user));
-                    signUpFrame.dispose();
-                    ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "Signed-up!");
+                    this.signUpFrame.dispose();
+                    InfoFrame errorFrame = new InfoFrame(this.signUpFrame, "Signed-up!");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

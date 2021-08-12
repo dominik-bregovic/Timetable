@@ -1,5 +1,9 @@
 import javax.persistence.*;
-import java.util.Locale;
+/*
+ * Author: Bregovic Dominik
+ * hibernate config schedule
+ * Last change: 12.08.2021
+ */
 
 @Entity
 public class Schedule extends User {
@@ -22,9 +26,6 @@ public class Schedule extends User {
     private String timeTo;
 
     @Column
-    //@JoinColumn(name = "the foraign keys name")
-    // with the join collum i can prevent Hibernate to map into a new table,
-    // so the two tables should be mapped together with their original tables
     private String assistant;
 
     @Column
@@ -47,11 +48,7 @@ public class Schedule extends User {
         this.room = r;
     }
 
-    public void checkDateValue(){
-
-
-    }
-
+    // here i wanted to start the validation process
     public void checkDayValue(String dayToCheckOn){
         String checkDay = dayToCheckOn.toLowerCase();
 
@@ -86,17 +83,6 @@ public class Schedule extends User {
         this.assistant = assistant;
     }
 
-    /*public void addAssistant(Assistant a){
-        this.assistant.add(a);
-    }
-
-    public void addSubject(Subject s){
-        this.subject.add(s);
-    }
-    public void addRoom(Room r){
-        this.room.add(r);
-    }*/
-
     public String getDate() {
         return date;
     }
@@ -129,7 +115,6 @@ public class Schedule extends User {
         this.timeTo = timeTo;
     }
 
-
     public Room getRoom() {
         return room;
     }
@@ -142,11 +127,9 @@ public class Schedule extends User {
 
 
     @Override
-    public boolean saveToDB() {
+    public void saveToDB() {
         if (HibernateSupport.commit(this)){
-            return false;
         }
-        return false;
     }
 
     @Override

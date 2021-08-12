@@ -1,4 +1,10 @@
 import javax.persistence.*;
+/*
+ * Author: Bregovic Dominik
+ * hibernate room class
+ * Last change: 12.08.2021
+ */
+
 
 @Entity
 public class Room implements SaveAndDelete {
@@ -32,11 +38,9 @@ public class Room implements SaveAndDelete {
     //the roomId could be a composition of the floor and the room number
 
     @Override
-    public boolean saveToDB() {
+    public void saveToDB() {
         if (HibernateSupport.commit(this)){
-            return false;
         }
-        return false;
     }
 
     @Override

@@ -13,12 +13,10 @@ public class Application {
     public static void initializeDatabase(){
 
         Student student = new Student( "Nika");
-        Student student1 = new Student("Dominik");
-        Subject subject = new Subject("Mathematics"); // consider using ENUMS !!!!
+
+        Subject subject = new Subject("Mathematics");
         Subject subject1 = new Subject("German");
         Subject subject2= new Subject("English");
-        //want to sign in
-        //subject.addStudent(student);
         Assistant assistant = new Assistant("Tom", "1234", subject.getSubjectName());
         Assistant assistant1 = new Assistant("Daniel", "1234", subject2.getSubjectName());
         Assistant assistant2= new Assistant("Marko", "1234", subject1.getSubjectName());
@@ -33,7 +31,6 @@ public class Application {
 
 
         HibernateSupport.beginTransaction();
-
         admin.saveToDB();
         subject.saveToDB();
         subject1.saveToDB();
@@ -42,7 +39,6 @@ public class Application {
         assistant1.saveToDB();
         assistant2.saveToDB();
         student.saveToDB();
-        student1.saveToDB();
         room.saveToDB();
         room1.saveToDB();
         room2.saveToDB();
@@ -51,7 +47,6 @@ public class Application {
         schedule1.saveToDB();
         schedule2.saveToDB();
         schedule3.saveToDB();
-
         HibernateSupport.commitTransaction();
 
         // here starting the interface-Part

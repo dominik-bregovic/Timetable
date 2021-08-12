@@ -12,7 +12,6 @@ public class AdminAssistOrStudInterface implements ActionListener{
     JTextField userName;
     JPasswordField userPass;
     JButton loginButton;
-    JButton signUpForCourse;
     JButton createUser;
 
     public AdminAssistOrStudInterface(){
@@ -69,41 +68,24 @@ public class AdminAssistOrStudInterface implements ActionListener{
             userPass.setText("");
         }
 
-
-
-
-        //hope this will work
-        if (e.getSource() == signUpForCourse){
-            System.out.println("all working");
-        }
-
-
     }
 
 
     public void studInterface(String user){
         this.logGui.closeLogFrame();
         this.studGui = new StudGui(myJDBC, user);
-        signUpForCourse = studGui.getSignUpButton();
-        signUpForCourse.addActionListener(this);
     }
 
     public void assistInterface(){
         this.logGui.closeLogFrame();
         this.assistGui = new AssistGui();
-        //this.createUser = adminGui.getCreateButton();
-        //this.createUser.addActionListener(this);
-        System.out.println("Is this user a Assist: "+myJDBC.searchForRecord("name", "assistant",userName.getText()));
-        System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "assistant",userPass.getText()));
     }
 
     public void adminInterface(){
         this.logGui.closeLogFrame();
         this.adminGui = new AdminGui();
-        this.createUser = adminGui.getCreateButton();
+        this.createUser = adminGui.getCreateCourseButton();
         this.createUser.addActionListener(this);
-        System.out.println("Is this user a Admin: "+myJDBC.searchForRecord("name", "administrator",userName.getText()));
-        System.out.println("is this user pass valid: "+myJDBC.searchForRecord("password", "administrator",userPass.getText()));
     }
 
 }

@@ -106,14 +106,13 @@ public class SignUpForCourseGui implements ActionListener {
         return button;
     }
 
-
+    // process for signing Up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    // here i have to get the right subject object and add the students names to it so that i can recognise if the student is already signed in.
+    //including save amount of students into database
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == signUpButton){
-            // process for signing Up!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // here i have to get the right subject object and add the students names to it so that i can recognise if the student is already signed in.
-            //including save amount of students into database
-            retrieveSubject();
+            signUp();
         }
         if (e.getSource() == cancelButton){
             signUpFrame.dispose();
@@ -125,22 +124,24 @@ public class SignUpForCourseGui implements ActionListener {
         * First we are retrieving the course he wants to sign up and the assign him to this course
         * if the user tries to sign in again, then an error is thrown
         */
-    public void retrieveSubject(){
+    public void signUp(){
         String course = userTextField.getText();
 
         if (course.contains("Mathematics")){
 
             if (this.jdbc.searchForRecord("students_student_ID", "subject_student",
-                    this.jdbc.retrieveID("student_ID", "student", "name", this.user))){
+                    this.jdbc.retrieveID("student_ID", "student", "name", this.user))
+                    && this.jdbc.searchForRecord("Subject_subject_id", "subject_student",
+                    this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "Mathematics"))){
 
-                System.out.println("user already sigened in");
-                ErrorFrame errorFrame = new ErrorFrame(); ///////////////////handle signing out here
+                ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
 
             }else{
                 try {
-                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", course),
-                                                        this.jdbc.retrieveID("student_ID", "student", "name", this.user));
+                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "Mathematics"),
+                            this.jdbc.retrieveID("student_ID", "student", "name", this.user));
                     signUpFrame.dispose();
+                    ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "Signed-up!");
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -148,9 +149,43 @@ public class SignUpForCourseGui implements ActionListener {
 
 
         }else if (course.contains("German")){
-            System.out.println("deutsch");
+
+            if (this.jdbc.searchForRecord("students_student_ID", "subject_student",
+                    this.jdbc.retrieveID("student_ID", "student", "name", this.user))
+                && this.jdbc.searchForRecord("Subject_subject_id", "subject_student",
+                    this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "German"))){
+
+                ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
+
+            }else{
+                try {
+                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "German"),
+                            this.jdbc.retrieveID("student_ID", "student", "name", this.user));
+                    signUpFrame.dispose();
+                    ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "Signed-up!");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }else if (course.contains("English")){
-            System.out.println("english");
+
+            if (this.jdbc.searchForRecord("students_student_ID", "subject_student",
+                    this.jdbc.retrieveID("student_ID", "student", "name", this.user))
+                && this.jdbc.searchForRecord("Subject_subject_id", "subject_student",
+                    this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "English"))){
+
+                ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "You are already signed in!"); ///////////////////handle signing out here
+
+            }else{
+                try {
+                    jdbc.insertIntoScheduleStudentTable(this.jdbc.retrieveID("subject_id", "subject", "subject_Name", "English"),
+                            this.jdbc.retrieveID("student_ID", "student", "name", this.user));
+                    signUpFrame.dispose();
+                    ErrorFrame errorFrame = new ErrorFrame(signUpFrame, "Signed-up!");
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 }

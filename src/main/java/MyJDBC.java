@@ -312,6 +312,23 @@ import java.util.Scanner;
         }
     }
 
+        public static void insertIntoCoursesTable(String courseName) throws SQLException {
+
+            stmt = connection.prepareStatement("INSERT INTO subject (subject_Name)VALUES(?)");
+
+            try {
+
+                stmt.setString(1, courseName);
+                stmt.addBatch();
+                stmt.executeBatch();
+
+            } catch (SQLException e) {
+                throw new SQLException(stmt.getWarnings().getMessage(),
+                        stmt.getWarnings().getSQLState(),
+                        stmt.getWarnings().getErrorCode());
+            }
+        }
+
 
         ////////////////////////////////////////////////////////////////////////////
 
@@ -343,7 +360,6 @@ import java.util.Scanner;
 
         public String retrieveID(String columnID, String tablename, String columnName ,  String studentsName){
             try {
-                System.out.println("start");
                 result = state.executeQuery("SELECT * FROM "+ tablename);
                 while (result.next()) {
                     if (studentsName.contains(result.getString(columnName))) {

@@ -9,7 +9,7 @@ public class Subject implements SaveAndDelete {
     private int subjectId;
     @Column(name = "subject_Name", length = 20)
     private String subjectName;
-    @OneToMany
+    @ManyToMany
     private List<Student> students = new ArrayList<>();
 
     public Subject(){

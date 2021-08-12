@@ -7,15 +7,28 @@ import java.awt.event.MouseListener;
 public class ErrorFrame implements ActionListener {
 
     private JFrame errorFrame;
+    private JFrame signUpFrame;
     private JPanel northPanel;
     private JPanel southPanel;
     private JPanel subSouthPanel;
-    /*private JPanel westPanel;
-    private JPanel eastPanel;*/
     private JPanel centerPanel;
     private JButton okButton = new JButton();
+    String frameText;
 
     public ErrorFrame(){
+
+    }
+
+    public ErrorFrame(String frameText){
+        this.frameText = frameText;
+        createFrame();
+        createPanel();
+    }
+
+    public ErrorFrame(JFrame signUpFrame, String frameText){
+        this.signUpFrame = signUpFrame;
+        this.signUpFrame.dispose();
+        this.frameText = frameText;
         createFrame();
         createPanel();
     }
@@ -59,7 +72,7 @@ public class ErrorFrame implements ActionListener {
         centerPanel.setBackground(Color.WHITE);
         centerPanel.setLayout(new BorderLayout());
         centerPanel.setPreferredSize(new Dimension(300,100));
-        centerPanel.add(createHeaderLabel(new JLabel(), "You are already signed in!", 30), BorderLayout.CENTER);
+        centerPanel.add(createHeaderLabel(new JLabel(), frameText, 30), BorderLayout.CENTER);
         this.errorFrame.add(centerPanel, BorderLayout.CENTER);
 
       /*  westPanel = new JPanel();
@@ -88,8 +101,8 @@ public class ErrorFrame implements ActionListener {
         //label.setOpaque(true);     //with this Background pixels are changed
         //label.setVerticalTextPosition(JLabel.CENTER);            //positioning text to image
         //label.setHorizontalTextPosition(JLabel.CENTER);       //positioning text to image
-        //label.setVerticalAlignment(JLabel.CENTER); // set place of label only by BorderLayout
-        //label.setHorizontalAlignment(JLabel.LEFT);
+        label.setVerticalAlignment(JLabel.CENTER); // set place of label only by BorderLayout
+        label.setHorizontalAlignment(JLabel.CENTER);
         //label.setBounds(0,0,750,100);       //set label within frame
 
         return label;
@@ -106,6 +119,7 @@ public class ErrorFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+       // signUpFrame.dispose();
         errorFrame.dispose();
     }
 }

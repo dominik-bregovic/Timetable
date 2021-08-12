@@ -1,6 +1,8 @@
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.ResultSet;
@@ -8,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudGui{
+public class StudGui implements ActionListener {
 
     private MyJDBC myJDBC;
     private ResultSet scheduleData;
@@ -17,13 +19,13 @@ public class StudGui{
     private Border createBorder;
     private JPanel northPanel;
     private JPanel southPanel;
-    private JPanel subSouthPanel;
+    private JPanel subEastPanel;
     private JPanel westPanel;
     private JPanel eastPanel;
     private JPanel centerPanel;
     private JPanel[][] timetable = new JPanel[9][7];
     private boolean[][] timetableFieldEmpty = new boolean[9][7];
-    private JButton signUpButton = new JButton();
+    private JButton logOutButton = new JButton();
     private List<String> daysOfWeek = new ArrayList<>();
     private List<String> timeFrom = new ArrayList<>();
     private List<String> timeUntil = new ArrayList<>();
@@ -64,19 +66,13 @@ public class StudGui{
         northPanel.add(createHeaderLabel(new JLabel(), "Student-timetable", 50), BorderLayout.NORTH);
         this.studFrame.add(northPanel, BorderLayout.NORTH);
 
+
         southPanel = new JPanel();
         southPanel.setBackground(new Color(200,200,200));
         southPanel.setLayout(new BorderLayout());
         southPanel.setPreferredSize(new Dimension(200,50));
         this.studFrame.add(southPanel, BorderLayout.SOUTH);
 
-        subSouthPanel = new JPanel();
-        subSouthPanel.setBackground(new Color(200,200,200));
-        subSouthPanel.setLayout(new FlowLayout());
-        subSouthPanel.setPreferredSize(new Dimension(150,50));
-        subSouthPanel.add(createButton(signUpButton));
-        subSouthPanel.add(new JLabel());
-        this.southPanel.add(subSouthPanel, BorderLayout.EAST);
 
 
         centerPanel = new JPanel();
@@ -97,10 +93,15 @@ public class StudGui{
         eastPanel.setBackground(new Color(100,200,200));
         eastPanel.setLayout(new BorderLayout());
         eastPanel.setPreferredSize(new Dimension(200,100));
-        //eastPanel.add(createLogPanelInput(new JPanel(), 100, 70, "Username:"), BorderLayout.NORTH);
-        //eastPanel.add(createLogPanelPassInput(new JPanel(), 100, 0, "Password:"), BorderLayout.CENTER);
-        //eastPanel.add(createLogPanel(new JPanel(), 200, 200, ""), BorderLayout.SOUTH);
         this.studFrame.add(eastPanel, BorderLayout.EAST);
+
+        subEastPanel = new JPanel();
+        subEastPanel.setBackground(new Color(100,200,200));
+        subEastPanel.setLayout(new FlowLayout());
+        subEastPanel.setPreferredSize(new Dimension(150,50));
+        subEastPanel.add(createButton(logOutButton));
+        subEastPanel.add(new JLabel());
+        this.eastPanel.add(subEastPanel, BorderLayout.NORTH);
     }
 
     public JLabel createHeaderLabel(JLabel label, String text, int fontsize){
@@ -124,6 +125,7 @@ public class StudGui{
         button.setText("Submit");
         button.setFocusable(false);
         button.setPreferredSize(new Dimension(100,30));
+        button.addActionListener(this);
         return button;
     }
 
@@ -179,7 +181,6 @@ public class StudGui{
         this.timetable[0][6] = saturday;
         this.centerPanel.add(timetable[0][6]);
         fillAllFields();
-
 
     }
 
@@ -281,33 +282,41 @@ public class StudGui{
 
         switch (time){
             case "08:00":
-                timetable[1][columnDay].add(createTextArea(index));
+                timetable[1][columnDay].removeAll();
+                timetable[1][columnDay].add(createTextPane(index));
                 break;
             case "09:00":
-                timetable[2][columnDay].add(createTextArea(index));
+                timetable[2][columnDay].removeAll();
+                timetable[2][columnDay].add(createTextPane(index));
                 break;
             case "10:00":
-                timetable[3][columnDay].add(createTextArea(index));
+                timetable[3][columnDay].removeAll();
+                timetable[3][columnDay].add(createTextPane(index));
                 break;
             case "11:00":
-                timetable[4][columnDay].add(createTextArea(index));
+                timetable[4][columnDay].removeAll();
+                timetable[4][columnDay].add(createTextPane(index));
                 break;
             case "12:00":
-                timetable[5][columnDay].add(createTextArea(index));
+                timetable[5][columnDay].removeAll();
+                timetable[5][columnDay].add(createTextPane(index));
                 break;
             case "13:00":
-                timetable[6][columnDay].add(createTextArea(index));
+                timetable[6][columnDay].removeAll();
+                timetable[6][columnDay].add(createTextPane(index));
                 break;
             case "14:00":
-                timetable[7][columnDay].add(createTextArea(index));
+                timetable[7][columnDay].removeAll();
+                timetable[7][columnDay].add(createTextPane(index));
                 break;
             case "15:00":
-                timetable[8][columnDay].add(createTextArea(index));
+                timetable[8][columnDay].removeAll();
+                timetable[8][columnDay].add(createTextPane(index));
                 break;
         }
     }
 
-    public JTextPane createTextArea(int index){
+    public JTextPane createTextPane(int index){
         JTextPane textPane = new JTextPane();
         textPane.setText("Sub: " + subject.get(index) + "\nProf: " +  teacher.get(index) + "\n" + "Room: " + room.get(index));
         textPane.setEditable(false);
@@ -367,9 +376,15 @@ public class StudGui{
     }
 
 
-    public JButton getSignUpButton() {
-        return signUpButton;
+    public JButton getLogOutButton() {
+        return logOutButton;
     }
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == logOutButton){
+            studFrame.dispose();
+        }
+    }
 }
 

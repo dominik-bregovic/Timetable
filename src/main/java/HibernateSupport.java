@@ -33,7 +33,6 @@ public class HibernateSupport {
 		configuration.addAnnotatedClass(Room.class);
 		configuration.addAnnotatedClass(Schedule.class);
 
-
 		configuration.configure(configFile);
 
 		new SchemaExport(configuration).create(true,true);
@@ -74,8 +73,4 @@ public class HibernateSupport {
 		getCurrentSession().delete(obj);
 	}
 
-	/*public static <T> void searchEntity(Object obj, String userName){
-		Session session = getCurrentSession();
-		session.get(Assistant.class, userName);
-	}*/
 }
